@@ -1,0 +1,93 @@
+{
+  "name": "react-multiselect-two-sides",
+  "version": "0.0.0",
+  "description": "React multiselect two sides component",
+  "license": "MIT",
+  "repository": "VovanR/react-multiselect-two-sides",
+  "author": {
+    "name": "Vladimir Rodkin",
+    "email": "mail@vovanr.com",
+    "url": "https://github.com/VovanR"
+  },
+  "scripts": {
+    "prepush": "npm test",
+    "test": "xo && ava",
+    "start": "webpack --watch",
+    "release-patch": "mversion patch",
+    "release-minor": "mversion minor",
+    "release-major": "mversion major",
+    "build": "webpack",
+    "deploy": "gh-pages-deploy"
+  },
+  "files": [
+    "index.jsx",
+    "style.styl"
+  ],
+  "main": "index.jsx",
+  "style": "style.styl",
+  "keywords": [
+    "react",
+    "component",
+    "react-component",
+    "select",
+    "multiselect",
+    "input"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "conventional-changelog-cli": "^1.2.0",
+    "css-loader": "^0.23.1",
+    "cz-conventional-changelog": "^1.1.6",
+    "eslint": "^2.10.2",
+    "eslint-config-xo": "^0.14.1",
+    "eslint-config-xo-react": "^0.7.0",
+    "eslint-plugin-react": "^5.1.1",
+    "husky": "^0.11.4",
+    "jsdom": "^9.1.0",
+    "mversion": "^1.10.1",
+    "react": "^15.0.2",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.0",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1",
+    "xo": "^0.15.1"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  },
+  "xo": {
+    "extends": "xo-react"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "gh-pages-deploy": {
+    "staticpath": "example",
+    "prep": [
+      "build"
+    ],
+    "noprompt": false
+  }
+}
