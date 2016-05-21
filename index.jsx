@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const MultiselectTwoSides = React.createClass({
 	propTypes: {
@@ -6,7 +7,11 @@ const MultiselectTwoSides = React.createClass({
 		value: React.PropTypes.array,
 		disabled: React.PropTypes.bool,
 		className: React.PropTypes.string,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		availableHeader: React.PropTypes.node,
+		availableFooter: React.PropTypes.node,
+		selectedHeader: React.PropTypes.node,
+		selectedFooter: React.PropTypes.node
 	},
 
 	getDefaultProps() {
@@ -53,21 +58,55 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	render() {
+		const {
+			className,
+			availableHeader,
+			availableFooter,
+			selectedHeader,
+			selectedFooter
+		} = this.props;
+
 		return (
-			<div className="msts">
-				<div className="msts__side msts__side_available">
-					<List
-						data={this.filterAvailable()}
-						onClick={this.handleClickAvailable}
-						/>
+			<div className={classNames('msts', className)}>
+				{availableHeader || selectedHeader ? (
+					<div className="msts__heading">
+						<div className="msts__side msts__side_available">
+							{availableHeader}
+						</div>
+
+						<div className="msts__side msts__side_selected">
+							{selectedHeader}
+						</div>
+					</div>
+				) : null}
+
+				<div className="msts__body">
+					<div className="msts__side msts__side_available">
+						<List
+							data={this.filterAvailable()}
+							onClick={this.handleClickAvailable}
+							/>
+					</div>
+
+					<div className="msts__side msts__side_selected">
+						<List
+							data={this.filterActive()}
+							onClick={this.handleClickSelected}
+							/>
+					</div>
 				</div>
 
-				<div className="msts__side msts__side_selected">
-					<List
-						data={this.filterActive()}
-						onClick={this.handleClickSelected}
-						/>
-				</div>
+				{availableFooter || selectedFooter ? (
+					<div className="msts__footer">
+						<div className="msts__side msts__side_available">
+							{availableFooter}
+						</div>
+
+						<div className="msts__side msts__side_selected">
+							{selectedFooter}
+						</div>
+					</div>
+				) : null}
 			</div>
 		);
 	}

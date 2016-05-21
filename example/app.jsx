@@ -2,8 +2,8 @@
 
 import MultiselectTwoSides from '../index.jsx';
 
-require('../style.styl');
-require('./style.styl');
+require('../style.css');
+require('./style.css');
 
 const App = React.createClass({
 	getInitialState() {
@@ -23,7 +23,7 @@ const App = React.createClass({
 				{name: 'Xyzzy', value: 11, id: 11},
 				{name: 'Thud', value: 12, id: 12}
 			],
-			value: [0, 3, 5, 6, 9]
+			value: [0, 3, 5, 9]
 		};
 	},
 
@@ -32,13 +32,20 @@ const App = React.createClass({
 	},
 
 	render() {
+		const {options, value} = this.state;
+		const selectedCount = value.length;
+		const availableCount = options.length - selectedCount;
+
 		return (
-			<div className="msts_theme_example">
-				<MultiselectTwoSides
-					{...this.state}
-					onChange={this.handleChange}
-					/>
-			</div>
+			<MultiselectTwoSides
+				{...this.state}
+				className="msts_theme_example"
+				onChange={this.handleChange}
+				availableHeader="Available"
+				availableFooter={`Available: ${availableCount}`}
+				selectedHeader="Selected"
+				selectedFooter={`Selected: ${selectedCount}`}
+				/>
 		);
 	}
 });

@@ -21,6 +21,15 @@ test(t => {
 	t.is(result.type, 'div');
 });
 
+test('allow to add custom class name', t => {
+	const props = {
+		className: 'foo bar'
+	};
+	const result = createComponent(C, props);
+
+	t.is(result.props.className, 'msts foo bar');
+});
+
 test('render childrens', t => {
 	const props = {};
 	const result = renderIntoDocument(props);

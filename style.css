@@ -1,0 +1,35 @@
+.msts {
+	user-select: none;
+	cursor: default;
+}
+
+.msts__heading {
+	display: flex;
+}
+
+.msts__body {
+	display: flex;
+}
+
+.msts__footer {
+	display: flex;
+}
+
+.msts__side {
+}
+
+.msts__side_available {
+}
+
+.msts__side_selected {
+}
+
+.msts__list {
+	padding: 0;
+	margin: 0;
+}
+
+.msts__list-item {
+	list-style-type: none;
+	cursor: pointer;
+}

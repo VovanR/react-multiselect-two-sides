@@ -1,3 +1,6 @@
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
+
 module.exports = {
 	entry: [
 		'./example/app.jsx'
@@ -15,10 +18,13 @@ module.exports = {
 				loader: 'babel'
 			},
 			{
-				test: /\.styl$/,
-				loader: 'style-loader!css-loader!stylus-loader'
+				test: /\.css$/,
+				loader: 'style-loader!css-loader!postcss-loader'
 			}
 		]
+	},
+	postcss: function () {
+		return [precss, autoprefixer];
 	},
 	externals: {
 		'react': 'React',

@@ -30,9 +30,19 @@ const App = React.createClass({
             options: [
                 {name: 'Foo', value: 0, id: 0},
                 {name: 'Bar', value: 1, id: 1},
-                {name: 'Baz', value: 2, id: 2}
+                {name: 'Baz', value: 2, id: 2},
+                {name: 'Qux', value: 3, id: 3},
+                {name: 'Quux', value: 4, id: 4},
+                {name: 'Corge', value: 5, id: 5},
+                {name: 'Grault', value: 6, id: 6},
+                {name: 'Garply', value: 7, id: 7},
+                {name: 'Waldo', value: 8, id: 8},
+                {name: 'Fred', value: 9, id: 9},
+                {name: 'Plugh', value: 10, id: 10},
+                {name: 'Xyzzy', value: 11, id: 11},
+                {name: 'Thud', value: 12, id: 12}
             ],
-            value: [1]
+            value: [0, 3, 5, 9]
         };
     },
 
@@ -41,13 +51,20 @@ const App = React.createClass({
     },
 
     render() {
+        const {options, value} = this.state;
+        const selectedCount = value.length;
+        const availableCount = options.length - selectedCount;
+
         return (
-            <div className="msts_theme_example">
-                <MultiselectTwoSides
-                    onChange={this.handleChange}
-                    {...this.state}
-                    />
-            </div>
+            <MultiselectTwoSides
+                {...this.state}
+                className="msts_theme_example"
+                onChange={this.handleChange}
+                availableHeader="Available"
+                availableFooter={`Available: ${availableCount}`}
+                selectedHeader="Selected"
+                selectedFooter={`Selected: ${selectedCount}`}
+                />
         );
     }
 });
@@ -58,14 +75,19 @@ ReactDOM.render(<App/>, document.getElementById('app'));
 ## Api
 
 ```js
-DecInc.propTypes = {
+MultiselectTwoSides.propTypes = {
     options: React.PropTypes.array,
     value: React.PropTypes.array,
     disabled: React.PropTypes.bool,
     className: React.PropTypes.string,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    availableHeader: React.PropTypes.node,
+    availableFooter: React.PropTypes.node,
+    selectedHeader: React.PropTypes.node,
+    selectedFooter: React.PropTypes.node
 };
-DecInc.defaultProps = {
+
+MultiselectTwoSides.defaultProps = {
     options: [],
     value: [],
     disabled: false

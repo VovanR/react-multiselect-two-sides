@@ -1,0 +1,50 @@
+/* Example theme */
+.msts_theme_example {
+	border: 1px solid silver;
+
+	.msts__side {
+		width: 50%;
+	}
+
+	.msts__heading {
+		.msts__side {
+			padding: 5px;
+			text-align: center;
+			color: #fff;
+			font-weight: bold;
+		}
+
+		.msts__side_available {
+			background-color: #9b59b6;
+		}
+
+		.msts__side_selected {
+			background-color: #2ecc71;
+		}
+	}
+
+	.msts__footer {
+		.msts__side {
+			padding: 5px 15px;
+			background-color: #ecf0f1;
+			font-size: 0.75em;
+			color: #7f8c8d;
+			text-align: right;
+		}
+	}
+
+	.msts__list {
+		height: 140px;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.msts__list-item {
+		padding: 5px 10px;
+	}
+
+	.msts__list-item:hover {
+		background-color: #2980b9;
+		color: #fff;
+	}
+}
