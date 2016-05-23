@@ -1,3 +1,13 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.2.0...v0.3.0) (2016-05-23)
+
+
+### Features
+
+* **lib:** Add controls select/deselect all ([a5b30ec](https://github.com/vovanr/react-multiselect-two-sides/commit/a5b30ec)), closes [#4](https://github.com/vovanr/react-multiselect-two-sides/issues/4)
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.1.0...v0.2.0) (2016-05-21)
 
