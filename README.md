@@ -64,7 +64,7 @@ const App = React.createClass({
                 availableFooter={`Available: ${availableCount}`}
                 selectedHeader="Selected"
                 selectedFooter={`Selected: ${selectedCount}`}
-				showControls
+                showControls
                 />
         );
     }
