@@ -11,14 +11,16 @@ const MultiselectTwoSides = React.createClass({
 		availableHeader: React.PropTypes.node,
 		availableFooter: React.PropTypes.node,
 		selectedHeader: React.PropTypes.node,
-		selectedFooter: React.PropTypes.node
+		selectedFooter: React.PropTypes.node,
+		showControls: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
 		return {
 			options: [],
 			value: [],
-			disabled: false
+			disabled: false,
+			showControls: false
 		};
 	},
 
@@ -35,6 +37,14 @@ const MultiselectTwoSides = React.createClass({
 		const newValue = value.slice();
 		newValue.splice(value.indexOf(id), 1);
 		onChange(newValue);
+	},
+
+	handleClickSelectAll() {
+		this.props.onChange(this.props.options.map(option => option.id));
+	},
+
+	handleClickDeselectAll() {
+		this.props.onChange([]);
 	},
 
 	filterAvailable() {
@@ -63,7 +73,10 @@ const MultiselectTwoSides = React.createClass({
 			availableHeader,
 			availableFooter,
 			selectedHeader,
-			selectedFooter
+			selectedFooter,
+			showControls,
+			options,
+			value
 		} = this.props;
 
 		return (
@@ -87,6 +100,25 @@ const MultiselectTwoSides = React.createClass({
 							onClick={this.handleClickAvailable}
 							/>
 					</div>
+
+					{showControls ? (
+						<div className="msts__side msts__side_controls">
+							<button
+								className="msts__control msts__control_select-all"
+								onClick={this.handleClickSelectAll}
+								title="Select all"
+								type="button"
+								disabled={options.length === value.length}
+								/>
+							<button
+								className="msts__control msts__control_deselect-all"
+								onClick={this.handleClickDeselectAll}
+								title="Deselect all"
+								type="button"
+								disabled={!value.length}
+								/>
+						</div>
+					) : null}
 
 					<div className="msts__side msts__side_selected">
 						<List

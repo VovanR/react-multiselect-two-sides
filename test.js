@@ -43,6 +43,24 @@ test('render childrens', t => {
 	t.is(inc.className, 'msts__side msts__side_selected');
 });
 
+test('render controls', t => {
+	const props = {
+		showControls: true
+	};
+	const result = renderIntoDocument(props);
+
+	const dec = getElem(result, 'msts__side_controls');
+	t.is(dec.nodeName, 'DIV');
+	t.is(dec.className, 'msts__side msts__side_controls');
+});
+
+test('dont render controls by default', t => {
+	const props = {};
+	const result = renderIntoDocument(props);
+
+	t.throws(() => getElem(result, 'msts__side_controls'));
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

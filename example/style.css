@@ -6,6 +6,13 @@
 		width: 50%;
 	}
 
+	.msts__side_controls {
+		width: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	.msts__heading {
 		.msts__side {
 			padding: 5px;
@@ -41,10 +48,40 @@
 
 	.msts__list-item {
 		padding: 5px 10px;
+		transition: background-color ease-in 0.1s, color ease-in 0.1s;
 	}
 
 	.msts__list-item:hover {
 		background-color: #2980b9;
 		color: #fff;
+	}
+
+	.msts__control {
+		border: none;
+		background: none;
+		cursor: pointer;
+		padding: 10px 3px;
+		color: #bdc3c7;
+		transition: color ease 0.15s;
+
+		&:hover {
+			color: #95a5a6;
+		}
+
+		&[disabled] {
+			color: #ecf0f1;
+		}
+	}
+
+	.msts__control_select-all {
+		&:after {
+			content: '❯';
+		}
+	}
+
+	.msts__control_deselect-all {
+		&:after {
+			content: '❮';
+		}
 	}
 }

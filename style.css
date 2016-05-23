@@ -24,6 +24,9 @@
 .msts__side_selected {
 }
 
+.msts__side_controls {
+}
+
 .msts__list {
 	padding: 0;
 	margin: 0;
@@ -32,4 +35,13 @@
 .msts__list-item {
 	list-style-type: none;
 	cursor: pointer;
+}
+
+.msts__control {
+}
+
+.msts__control_select-all {
+}
+
+.msts__control_deselect-all {
 }
