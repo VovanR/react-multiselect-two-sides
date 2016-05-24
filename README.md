@@ -65,6 +65,8 @@ const App = React.createClass({
                 selectedHeader="Selected"
                 selectedFooter={`Selected: ${selectedCount}`}
                 showControls
+                searchable
+                clearable
                 />
         );
     }
@@ -88,7 +90,8 @@ MultiselectTwoSides.propTypes = {
     selectedFooter: React.PropTypes.node,
     showControls: React.PropTypes.bool,
     searchable: React.PropTypes.bool,
-    placeholder: React.PropTypes.string
+    placeholder: React.PropTypes.string,
+    clearable: React.PropTypes.bool
 };
 
 MultiselectTwoSides.defaultProps = {
@@ -96,7 +99,8 @@ MultiselectTwoSides.defaultProps = {
     value: [],
     disabled: false,
     showControls: false,
-    searchable: false
+    searchable: false,
+    clearable: false
 };
 ```
 
