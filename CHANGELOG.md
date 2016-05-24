@@ -1,3 +1,13 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.3.0...v0.4.0) (2016-05-24)
+
+
+### Features
+
+* **lib:** Add filter lists ([f9b8866](https://github.com/vovanr/react-multiselect-two-sides/commit/f9b8866)), closes [#5](https://github.com/vovanr/react-multiselect-two-sides/issues/5)
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.2.0...v0.3.0) (2016-05-23)
 
