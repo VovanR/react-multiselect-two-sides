@@ -12,7 +12,9 @@ const MultiselectTwoSides = React.createClass({
 		availableFooter: React.PropTypes.node,
 		selectedHeader: React.PropTypes.node,
 		selectedFooter: React.PropTypes.node,
-		showControls: React.PropTypes.bool
+		showControls: React.PropTypes.bool,
+		searchable: React.PropTypes.bool,
+		placeholder: React.PropTypes.string
 	},
 
 	getDefaultProps() {
@@ -20,12 +22,16 @@ const MultiselectTwoSides = React.createClass({
 			options: [],
 			value: [],
 			disabled: false,
-			showControls: false
+			showControls: false,
+			searchable: false
 		};
 	},
 
 	getInitialState() {
-		return {};
+		return {
+			filterAvailable: '',
+			filterSelected: ''
+		};
 	},
 
 	handleClickAvailable(id) {
@@ -49,22 +55,56 @@ const MultiselectTwoSides = React.createClass({
 
 	filterAvailable() {
 		const {options, value} = this.props;
-		return options.reduce((a, b) => {
+		const filtered = options.reduce((a, b) => {
 			if (value.indexOf(b.id) === -1) {
 				a.push(b);
 			}
 			return a;
 		}, []);
+
+		if (!this.props.searchable) {
+			return filtered;
+		}
+
+		const {filterAvailable: filter} = this.state;
+		if (filter) {
+			return filtered.filter(a => {
+				return filterByName(a, filter);
+			});
+		}
+
+		return filtered;
 	},
 
 	filterActive() {
 		const {options, value} = this.props;
-		return options.reduce((a, b) => {
+		const filtered = options.reduce((a, b) => {
 			if (value.indexOf(b.id) > -1) {
 				a.push(b);
 			}
 			return a;
 		}, []);
+
+		if (!this.props.searchable) {
+			return filtered;
+		}
+
+		const {filterSelected: filter} = this.state;
+		if (filter) {
+			return filtered.filter(a => {
+				return filterByName(a, filter);
+			});
+		}
+
+		return filtered;
+	},
+
+	handleChangeFilterAvailable(e) {
+		this.setState({filterAvailable: e.target.value});
+	},
+
+	handleChangeFilterSelected(e) {
+		this.setState({filterSelected: e.target.value});
 	},
 
 	render() {
@@ -76,8 +116,15 @@ const MultiselectTwoSides = React.createClass({
 			selectedFooter,
 			showControls,
 			options,
-			value
+			value,
+			searchable,
+			placeholder
 		} = this.props;
+
+		const {
+			filterAvailable,
+			filterSelected
+		} = this.state;
 
 		return (
 			<div className={classNames('msts', className)}>
@@ -89,6 +136,26 @@ const MultiselectTwoSides = React.createClass({
 
 						<div className="msts__side msts__side_selected">
 							{selectedHeader}
+						</div>
+					</div>
+				) : null}
+
+				{searchable ? (
+					<div className="msts__subheading">
+						<div className="msts__side msts__side_filter">
+							<Filter
+								value={filterAvailable}
+								onChange={this.handleChangeFilterAvailable}
+								placeholder={placeholder}
+								/>
+						</div>
+
+						<div className="msts__side msts__side_filter">
+							<Filter
+								value={filterSelected}
+								onChange={this.handleChangeFilterSelected}
+								placeholder={placeholder}
+								/>
 						</div>
 					</div>
 				) : null}
@@ -206,3 +273,36 @@ const ListItem = React.createClass({
 		);
 	}
 });
+
+const Filter = React.createClass({
+	propTypes: {
+		value: React.PropTypes.string,
+		onChange: React.PropTypes.func.isRequired,
+		placeholder: React.PropTypes.string
+	},
+
+	handleChange(e) {
+		this.props.onChange(e);
+	},
+
+	render() {
+		const {
+			value,
+			placeholder
+		} = this.props;
+
+		return (
+			<input
+				className="msts__filter-input"
+				value={value}
+				onChange={this.handleChange}
+				type="text"
+				placeholder={placeholder}
+				/>
+		);
+	}
+});
+
+function filterByName(a, name) {
+	return a.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+}

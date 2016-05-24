@@ -86,14 +86,17 @@ MultiselectTwoSides.propTypes = {
     availableFooter: React.PropTypes.node,
     selectedHeader: React.PropTypes.node,
     selectedFooter: React.PropTypes.node,
-    showControls: React.PropTypes.bool
+    showControls: React.PropTypes.bool,
+    searchable: React.PropTypes.bool,
+    placeholder: React.PropTypes.string
 };
 
 MultiselectTwoSides.defaultProps = {
     options: [],
     value: [],
     disabled: false,
-    showControls: false
+    showControls: false,
+    searchable: false
 };
 ```
 

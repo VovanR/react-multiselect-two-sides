@@ -61,6 +61,24 @@ test('dont render controls by default', t => {
 	t.throws(() => getElem(result, 'msts__side_controls'));
 });
 
+test('render filter', t => {
+	const props = {
+		searchable: true
+	};
+	const result = renderIntoDocument(props);
+
+	const dec = getElem(result, 'msts__subheading');
+	t.is(dec.nodeName, 'DIV');
+	t.is(dec.className, 'msts__subheading');
+});
+
+test('dont render filter by default', t => {
+	const props = {};
+	const result = renderIntoDocument(props);
+
+	t.throws(() => getElem(result, 'msts__subheading'));
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

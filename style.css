@@ -7,6 +7,10 @@
 	display: flex;
 }
 
+.msts__subheading {
+	display: flex;
+}
+
 .msts__body {
 	display: flex;
 }
@@ -16,6 +20,7 @@
 }
 
 .msts__side {
+	width: 50%;
 }
 
 .msts__side_available {
@@ -25,6 +30,10 @@
 }
 
 .msts__side_controls {
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .msts__list {
@@ -44,4 +53,7 @@
 }
 
 .msts__control_deselect-all {
+}
+
+.msts__filter-input {
 }

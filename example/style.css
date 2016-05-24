@@ -2,17 +2,6 @@
 .msts_theme_example {
 	border: 1px solid silver;
 
-	.msts__side {
-		width: 50%;
-	}
-
-	.msts__side_controls {
-		width: auto;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
 	.msts__heading {
 		.msts__side {
 			padding: 5px;
@@ -27,6 +16,12 @@
 
 		.msts__side_selected {
 			background-color: #2ecc71;
+		}
+	}
+
+	.msts__subheading {
+		.msts__side_filter {
+			padding: 5px;
 		}
 	}
 
@@ -83,5 +78,12 @@
 		&:after {
 			content: '❮';
 		}
+	}
+
+	.msts__filter-input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 5px;
+		border: 1px solid silver;
 	}
 }
