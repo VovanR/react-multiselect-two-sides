@@ -48,6 +48,7 @@ const App = React.createClass({
 				placeholder="Filter…"
 				showControls
 				searchable
+				clearable
 				/>
 		);
 	}

@@ -14,7 +14,8 @@ const MultiselectTwoSides = React.createClass({
 		selectedFooter: React.PropTypes.node,
 		showControls: React.PropTypes.bool,
 		searchable: React.PropTypes.bool,
-		placeholder: React.PropTypes.string
+		placeholder: React.PropTypes.string,
+		clearable: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -23,7 +24,8 @@ const MultiselectTwoSides = React.createClass({
 			value: [],
 			disabled: false,
 			showControls: false,
-			searchable: false
+			searchable: false,
+			clearable: false
 		};
 	},
 
@@ -99,12 +101,12 @@ const MultiselectTwoSides = React.createClass({
 		return filtered;
 	},
 
-	handleChangeFilterAvailable(e) {
-		this.setState({filterAvailable: e.target.value});
+	handleChangeFilterAvailable(value) {
+		this.setState({filterAvailable: value});
 	},
 
-	handleChangeFilterSelected(e) {
-		this.setState({filterSelected: e.target.value});
+	handleChangeFilterSelected(value) {
+		this.setState({filterSelected: value});
 	},
 
 	render() {
@@ -118,7 +120,8 @@ const MultiselectTwoSides = React.createClass({
 			options,
 			value,
 			searchable,
-			placeholder
+			placeholder,
+			clearable
 		} = this.props;
 
 		const {
@@ -147,6 +150,7 @@ const MultiselectTwoSides = React.createClass({
 								value={filterAvailable}
 								onChange={this.handleChangeFilterAvailable}
 								placeholder={placeholder}
+								clearable={clearable}
 								/>
 						</div>
 
@@ -155,6 +159,7 @@ const MultiselectTwoSides = React.createClass({
 								value={filterSelected}
 								onChange={this.handleChangeFilterSelected}
 								placeholder={placeholder}
+								clearable={clearable}
 								/>
 						</div>
 					</div>
@@ -278,27 +283,43 @@ const Filter = React.createClass({
 	propTypes: {
 		value: React.PropTypes.string,
 		onChange: React.PropTypes.func.isRequired,
-		placeholder: React.PropTypes.string
+		placeholder: React.PropTypes.string,
+		clearable: React.PropTypes.bool
 	},
 
 	handleChange(e) {
-		this.props.onChange(e);
+		this.props.onChange(e.target.value);
+	},
+
+	handleClickClear() {
+		this.props.onChange('');
 	},
 
 	render() {
 		const {
 			value,
-			placeholder
+			placeholder,
+			clearable
 		} = this.props;
 
 		return (
-			<input
-				className="msts__filter-input"
-				value={value}
-				onChange={this.handleChange}
-				type="text"
-				placeholder={placeholder}
-				/>
+			<div className="msts__filter">
+				<input
+					className="msts__filter-input"
+					value={value}
+					onChange={this.handleChange}
+					type="text"
+					placeholder={placeholder}
+					/>
+				{clearable ? (
+					<button
+						className="msts__filter-clear"
+						onClick={this.handleClickClear}
+						title="Clear"
+						type="button"
+						/>
+				) : null}
+			</div>
 		);
 	}
 });

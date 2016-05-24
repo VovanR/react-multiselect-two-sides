@@ -80,10 +80,37 @@
 		}
 	}
 
+	.msts__filter {
+		position: relative;
+	}
+
 	.msts__filter-input {
 		width: 100%;
 		box-sizing: border-box;
 		padding: 5px;
 		border: 1px solid silver;
+	}
+
+	.msts__filter-clear {
+		background: none;
+		border: none;
+		cursor: pointer;
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		padding: 0 10px;
+		font-size: 1.25em;
+		color: silver;
+		transition: color ease 0.15s;
+
+		&:after {
+			content: '×';
+			vertical-align: middle;
+		}
+
+		&:hover {
+			color: #c0392b;
+		}
 	}
 }
