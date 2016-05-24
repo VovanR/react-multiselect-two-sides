@@ -1,3 +1,13 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.4.0...v0.5.0) (2016-05-24)
+
+
+### Features
+
+* **lib:** Add clear filter button ([434c898](https://github.com/vovanr/react-multiselect-two-sides/commit/434c898)), closes [#6](https://github.com/vovanr/react-multiselect-two-sides/issues/6)
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.3.0...v0.4.0) (2016-05-24)
 
