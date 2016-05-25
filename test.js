@@ -86,6 +86,17 @@ test('render filter clear', t => {
 	};
 	const result = renderIntoDocument(props);
 
+	const filters = getElems(result, 'msts__filter-input');
+	t.is(getElems(result, 'msts__filter-clear').length, 0, 'dont render if filter is empty');
+
+	filters[0].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[0]);
+	t.is(getElems(result, 'msts__filter-clear').length, 1);
+
+	filters[1].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[1]);
+	t.is(getElems(result, 'msts__filter-clear').length, 2);
+
 	const filterClear = getElems(result, 'msts__filter-clear');
 	t.is(filterClear.length, 2);
 	t.is(filterClear[0].nodeName, 'BUTTON');
