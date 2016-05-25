@@ -311,7 +311,7 @@ const Filter = React.createClass({
 					type="text"
 					placeholder={placeholder}
 					/>
-				{clearable ? (
+				{clearable && value ? (
 					<button
 						className="msts__filter-clear"
 						onClick={this.handleClickClear}
