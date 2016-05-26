@@ -25,7 +25,7 @@ const MultiselectTwoSides = React.createClass({
 			disabled: false,
 			showControls: false,
 			searchable: false,
-			clearable: false
+			clearable: true
 		};
 	},
 

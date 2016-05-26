@@ -66,7 +66,6 @@ const App = React.createClass({
                 selectedFooter={`Selected: ${selectedCount}`}
                 showControls
                 searchable
-                clearable
                 />
         );
     }
@@ -100,7 +99,7 @@ MultiselectTwoSides.defaultProps = {
     disabled: false,
     showControls: false,
     searchable: false,
-    clearable: false
+    clearable: true
 };
 ```
 

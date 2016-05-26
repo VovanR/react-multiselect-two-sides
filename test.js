@@ -81,8 +81,7 @@ test('dont render filter by default', t => {
 
 test('render filter clear', t => {
 	const props = {
-		searchable: true,
-		clearable: true
+		searchable: true
 	};
 	const result = renderIntoDocument(props);
 
@@ -103,9 +102,19 @@ test('render filter clear', t => {
 	t.is(filterClear[0].className, 'msts__filter-clear');
 });
 
-test('dont render filter clear by default', t => {
+test('dont render filter clear if `clearable` is false', t => {
 	const props = {
-		searchable: true
+		searchable: true,
+		clearable: false
+	};
+	const result = renderIntoDocument(props);
+
+	const filters = getElems(result, 'msts__filter-input');
+
+	filters[0].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[0]);
+	t.is(getElems(result, 'msts__filter-clear').length, 0);
+});
 	};
 	const result = renderIntoDocument(props);
 
