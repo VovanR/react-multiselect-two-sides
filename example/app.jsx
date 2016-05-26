@@ -74,8 +74,7 @@ const App = React.createClass({
 				{
 					label: 'Disabled',
 					name: 'disabled',
-					value: false,
-					disabled: true
+					value: false
 				}
 			]
 		};

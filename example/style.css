@@ -114,3 +114,17 @@
 		}
 	}
 }
+
+.msts_theme_example.msts_disabled {
+	background-color: #ecf0f1;
+
+	.msts__list-item {
+		background-color: #ecf0f1;
+		color: #7f8c8d;
+	}
+
+	.msts__list-item:hover {
+		background-color: #ecf0f1;
+		color: #7f8c8d;
+	}
+}

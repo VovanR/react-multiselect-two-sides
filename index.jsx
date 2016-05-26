@@ -121,7 +121,8 @@ const MultiselectTwoSides = React.createClass({
 			value,
 			searchable,
 			placeholder,
-			clearable
+			clearable,
+			disabled
 		} = this.props;
 
 		const {
@@ -129,8 +130,10 @@ const MultiselectTwoSides = React.createClass({
 			filterSelected
 		} = this.state;
 
+		const componentClassName = 'msts';
+
 		return (
-			<div className={classNames('msts', className)}>
+			<div className={classNames(componentClassName, disabled ? `${componentClassName}_disabled` : null, className)}>
 				{availableHeader || selectedHeader ? (
 					<div className="msts__heading">
 						<div className="msts__side msts__side_available">
@@ -151,6 +154,7 @@ const MultiselectTwoSides = React.createClass({
 								onChange={this.handleChangeFilterAvailable}
 								placeholder={placeholder}
 								clearable={clearable}
+								disabled={disabled}
 								/>
 						</div>
 
@@ -160,6 +164,7 @@ const MultiselectTwoSides = React.createClass({
 								onChange={this.handleChangeFilterSelected}
 								placeholder={placeholder}
 								clearable={clearable}
+								disabled={disabled}
 								/>
 						</div>
 					</div>
@@ -170,6 +175,7 @@ const MultiselectTwoSides = React.createClass({
 						<List
 							data={this.filterAvailable()}
 							onClick={this.handleClickAvailable}
+							disabled={disabled}
 							/>
 					</div>
 
@@ -180,14 +186,14 @@ const MultiselectTwoSides = React.createClass({
 								onClick={this.handleClickSelectAll}
 								title="Select all"
 								type="button"
-								disabled={options.length === value.length}
+								disabled={options.length === value.length || disabled}
 								/>
 							<button
 								className="msts__control msts__control_deselect-all"
 								onClick={this.handleClickDeselectAll}
 								title="Deselect all"
 								type="button"
-								disabled={!value.length}
+								disabled={!value.length || disabled}
 								/>
 						</div>
 					) : null}
@@ -196,6 +202,7 @@ const MultiselectTwoSides = React.createClass({
 						<List
 							data={this.filterActive()}
 							onClick={this.handleClickSelected}
+							disabled={disabled}
 							/>
 					</div>
 				</div>
@@ -221,7 +228,8 @@ export default MultiselectTwoSides;
 const List = React.createClass({
 	propTypes: {
 		data: React.PropTypes.array,
-		onClick: React.PropTypes.func
+		onClick: React.PropTypes.func,
+		disabled: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
@@ -235,14 +243,17 @@ const List = React.createClass({
 	},
 
 	render() {
+		const {data, disabled} = this.props;
+
 		return (
 			<ul className="msts__list">
-				{this.props.data.map(item => {
+				{data.map(item => {
 					return (
 						<ListItem
 							key={item.id}
 							id={item.id}
 							onClick={this.handleClick}
+							disabled={disabled}
 							>
 							{item.name}
 						</ListItem>
@@ -257,20 +268,26 @@ const ListItem = React.createClass({
 	propTypes: {
 		id: React.PropTypes.number,
 		onClick: React.PropTypes.func,
-		children: React.PropTypes.node
+		children: React.PropTypes.node,
+		disabled: React.PropTypes.bool
 	},
 
 	handleClick() {
+		if (this.props.disabled) {
+			return;
+		}
+
 		const {onClick, id} = this.props;
 		onClick(id);
 	},
 
 	render() {
-		const {children} = this.props;
+		const {children, disabled} = this.props;
+		const className = 'msts__list-item';
 
 		return (
 			<li
-				className="msts__list-item"
+				className={classNames(className, disabled ? `${className}_disabled` : null)}
 				onClick={this.handleClick}
 				>
 				{children}
@@ -284,7 +301,8 @@ const Filter = React.createClass({
 		value: React.PropTypes.string,
 		onChange: React.PropTypes.func.isRequired,
 		placeholder: React.PropTypes.string,
-		clearable: React.PropTypes.bool
+		clearable: React.PropTypes.bool,
+		disabled: React.PropTypes.bool
 	},
 
 	handleChange(e) {
@@ -299,7 +317,8 @@ const Filter = React.createClass({
 		const {
 			value,
 			placeholder,
-			clearable
+			clearable,
+			disabled
 		} = this.props;
 
 		return (
@@ -310,6 +329,7 @@ const Filter = React.createClass({
 					onChange={this.handleChange}
 					type="text"
 					placeholder={placeholder}
+					disabled={disabled}
 					/>
 				{clearable && value ? (
 					<button
@@ -317,6 +337,7 @@ const Filter = React.createClass({
 						onClick={this.handleClickClear}
 						title="Clear"
 						type="button"
+						disabled={disabled}
 						/>
 				) : null}
 			</div>

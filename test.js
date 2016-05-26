@@ -115,11 +115,73 @@ test('dont render filter clear if `clearable` is false', t => {
 	ReactTestUtils.Simulate.change(filters[0]);
 	t.is(getElems(result, 'msts__filter-clear').length, 0);
 });
+
+test('disabled: disable controls', t => {
+	const props = {
+		showControls: true,
+		disabled: true,
+		options: [
+			{name: 'Foo', value: 0, id: 0},
+			{name: 'Bar', value: 1, id: 1}
+		],
+		value: [1]
 	};
 	const result = renderIntoDocument(props);
 
-	const filterClear = getElems(result, 'msts__filter-clear');
-	t.is(filterClear.length, 0);
+	const controls = getElems(result, 'msts__control');
+	t.is(controls[0].disabled, true);
+	t.is(controls[1].disabled, true);
+});
+
+test('disabled: disable filter', t => {
+	const props = {
+		searchable: true,
+		disabled: true
+	};
+	const result = renderIntoDocument(props);
+
+	const filters = getElems(result, 'msts__filter-input');
+	t.is(filters[0].disabled, true);
+	t.is(filters[1].disabled, true);
+
+	filters[0].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[0]);
+	filters[1].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[1]);
+
+	const filterClears = getElems(result, 'msts__filter-clear');
+	t.is(filterClears[0].disabled, true);
+	t.is(filterClears[1].disabled, true);
+});
+
+test('disabled: disable lists', t => {
+	let isChanged = false;
+	const props = {
+		disabled: true,
+		options: [
+			{name: 'Foo', value: 0, id: 0},
+			{name: 'Bar', value: 1, id: 1}
+		],
+		value: [1],
+		onChange() {
+			isChanged = true;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const items = getElems(result, 'msts__list-item');
+	ReactTestUtils.Simulate.click(items[0]);
+	t.false(isChanged);
+	ReactTestUtils.Simulate.click(items[1]);
+	t.false(isChanged);
+
+	t.is(items[0].className, 'msts__list-item msts__list-item_disabled');
+});
+
+test('disabled: disable component', t => {
+	const result = createComponent(C, {disabled: true});
+
+	t.is(result.props.className, 'msts msts_disabled');
 });
 
 // Shallow renderer
