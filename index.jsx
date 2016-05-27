@@ -48,7 +48,15 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	handleClickSelectAll() {
-		this.props.onChange(this.props.options.map(option => option.id));
+		const value = this.props.options.reduce((a, b) => {
+			if (!b.disabled) {
+				a.push(b.id);
+			}
+
+			return a;
+		}, []);
+
+		this.props.onChange(value);
 	},
 
 	handleClickDeselectAll() {
@@ -133,7 +141,7 @@ const MultiselectTwoSides = React.createClass({
 		const componentClassName = 'msts';
 
 		return (
-			<div className={classNames(componentClassName, disabled ? `${componentClassName}_disabled` : null, className)}>
+			<div className={classNames(componentClassName, disabled && `${componentClassName}_disabled`, className)}>
 				{availableHeader || selectedHeader ? (
 					<div className="msts__heading">
 						<div className="msts__side msts__side_available">
@@ -239,11 +247,15 @@ const List = React.createClass({
 	},
 
 	handleClick(id) {
+		if (this.props.disabled) {
+			return;
+		}
+
 		this.props.onClick(id);
 	},
 
 	render() {
-		const {data, disabled} = this.props;
+		const {data} = this.props;
 
 		return (
 			<ul className="msts__list">
@@ -253,7 +265,7 @@ const List = React.createClass({
 							key={item.id}
 							id={item.id}
 							onClick={this.handleClick}
-							disabled={disabled}
+							disabled={item.disabled}
 							>
 							{item.name}
 						</ListItem>
@@ -287,7 +299,7 @@ const ListItem = React.createClass({
 
 		return (
 			<li
-				className={classNames(className, disabled ? `${className}_disabled` : null)}
+				className={classNames(className, disabled && `${className}_disabled`)}
 				onClick={this.handleClick}
 				>
 				{children}

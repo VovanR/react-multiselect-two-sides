@@ -30,7 +30,7 @@ const App = React.createClass({
             options: [
                 {name: 'Foo', value: 0, id: 0},
                 {name: 'Bar', value: 1, id: 1},
-                {name: 'Baz', value: 2, id: 2},
+                {name: 'Baz', value: 2, id: 2, disabled: true},
                 {name: 'Qux', value: 3, id: 3},
                 {name: 'Quux', value: 4, id: 4},
                 {name: 'Corge', value: 5, id: 5},

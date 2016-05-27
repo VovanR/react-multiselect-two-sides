@@ -154,15 +154,19 @@ test('disabled: disable filter', t => {
 	t.is(filterClears[1].disabled, true);
 });
 
-test('disabled: disable lists', t => {
+test('disabled: disable component', t => {
+	const result = createComponent(C, {disabled: true});
+
+	t.is(result.props.className, 'msts msts_disabled');
+});
+
+test('disable: disable handle', t => {
 	let isChanged = false;
 	const props = {
 		disabled: true,
 		options: [
-			{name: 'Foo', value: 0, id: 0},
-			{name: 'Bar', value: 1, id: 1}
+			{name: 'Foo', value: 0, id: 0}
 		],
-		value: [1],
 		onChange() {
 			isChanged = true;
 		}
@@ -172,16 +176,43 @@ test('disabled: disable lists', t => {
 	const items = getElems(result, 'msts__list-item');
 	ReactTestUtils.Simulate.click(items[0]);
 	t.false(isChanged);
-	ReactTestUtils.Simulate.click(items[1]);
-	t.false(isChanged);
+});
 
+test('disable option', t => {
+	let isChanged = false;
+	const props = {
+		options: [
+			{name: 'Foo', value: 0, id: 0, disabled: true}
+		],
+		onChange() {
+			isChanged = true;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const items = getElems(result, 'msts__list-item');
+	ReactTestUtils.Simulate.click(items[0]);
+	t.false(isChanged);
 	t.is(items[0].className, 'msts__list-item msts__list-item_disabled');
 });
 
-test('disabled: disable component', t => {
-	const result = createComponent(C, {disabled: true});
+test('dont select disabled option by select all', t => {
+	t.plan(1);
 
-	t.is(result.props.className, 'msts msts_disabled');
+	const props = {
+		showControls: true,
+		options: [
+			{name: 'Foo', value: 0, id: 0, disabled: true},
+			{name: 'Bar', value: 1, id: 1}
+		],
+		onChange(value) {
+			t.deepEqual(value, [1]);
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const selectAll = getElem(result, 'msts__control_select-all');
+	ReactTestUtils.Simulate.click(selectAll);
 });
 
 // Shallow renderer

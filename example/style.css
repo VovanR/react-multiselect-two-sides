@@ -44,11 +44,21 @@
 	.msts__list-item {
 		padding: 5px 10px;
 		transition: background-color ease-in 0.1s, color ease-in 0.1s;
-	}
 
-	.msts__list-item:hover {
-		background-color: #2980b9;
-		color: #fff;
+		&:hover {
+			background-color: #2980b9;
+			color: #fff;
+		}
+
+		&_disabled {
+			background-color: #ecf0f1;
+			color: #7f8c8d;
+
+			&:hover {
+				background-color: #ecf0f1;
+				color: #7f8c8d;
+			}
+		}
 	}
 
 	.msts__control {
@@ -117,14 +127,4 @@
 
 .msts_theme_example.msts_disabled {
 	background-color: #ecf0f1;
-
-	.msts__list-item {
-		background-color: #ecf0f1;
-		color: #7f8c8d;
-	}
-
-	.msts__list-item:hover {
-		background-color: #ecf0f1;
-		color: #7f8c8d;
-	}
 }

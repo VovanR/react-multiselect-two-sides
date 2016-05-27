@@ -3,6 +3,9 @@
 	cursor: default;
 }
 
+.msts_disabled {
+}
+
 .msts__heading {
 	display: flex;
 }
@@ -44,6 +47,10 @@
 .msts__list-item {
 	list-style-type: none;
 	cursor: pointer;
+}
+
+.msts__list-item_disabled {
+	cursor: default;
 }
 
 .msts__control {
