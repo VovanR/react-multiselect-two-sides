@@ -215,6 +215,40 @@ test('dont select disabled option by select all', t => {
 	ReactTestUtils.Simulate.click(selectAll);
 });
 
+test('prop clearFilterText', t => {
+	const props = {
+		searchable: true,
+		clearFilterText: 'Foo'
+	};
+	const result = renderIntoDocument(props);
+
+	const filters = getElems(result, 'msts__filter-input');
+
+	filters[0].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[0]);
+	filters[1].value = 'foo';
+	ReactTestUtils.Simulate.change(filters[1]);
+
+	const filterClear = getElems(result, 'msts__filter-clear');
+	t.is(filterClear[0].title, 'Foo');
+	t.is(filterClear[1].title, 'Foo');
+});
+
+test('prop selectAllText and deselectAllText', t => {
+	const props = {
+		showControls: true,
+		selectAllText: 'Foo',
+		deselectAllText: 'Bar'
+	};
+	const result = renderIntoDocument(props);
+
+	const selectAll = getElem(result, 'msts__control_select-all');
+	t.is(selectAll.title, 'Foo');
+
+	const deselectAll = getElem(result, 'msts__control_deselect-all');
+	t.is(deselectAll.title, 'Bar');
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

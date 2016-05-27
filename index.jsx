@@ -3,29 +3,35 @@ import classNames from 'classnames';
 
 const MultiselectTwoSides = React.createClass({
 	propTypes: {
-		options: React.PropTypes.array,
-		value: React.PropTypes.array,
-		disabled: React.PropTypes.bool,
-		className: React.PropTypes.string,
-		onChange: React.PropTypes.func,
-		availableHeader: React.PropTypes.node,
 		availableFooter: React.PropTypes.node,
-		selectedHeader: React.PropTypes.node,
-		selectedFooter: React.PropTypes.node,
-		showControls: React.PropTypes.bool,
-		searchable: React.PropTypes.bool,
+		availableHeader: React.PropTypes.node,
+		className: React.PropTypes.string,
+		clearFilterText: React.PropTypes.string,
+		clearable: React.PropTypes.bool,
+		deselectAllText: React.PropTypes.string,
+		disabled: React.PropTypes.bool,
+		onChange: React.PropTypes.func,
+		options: React.PropTypes.array,
 		placeholder: React.PropTypes.string,
-		clearable: React.PropTypes.bool
+		searchable: React.PropTypes.bool,
+		selectAllText: React.PropTypes.string,
+		selectedFooter: React.PropTypes.node,
+		selectedHeader: React.PropTypes.node,
+		showControls: React.PropTypes.bool,
+		value: React.PropTypes.array
 	},
 
 	getDefaultProps() {
 		return {
-			options: [],
-			value: [],
+			clearable: true,
+			clearFilterText: 'Clear',
 			disabled: false,
-			showControls: false,
+			options: [],
 			searchable: false,
-			clearable: true
+			showControls: false,
+			selectAllText: 'Select all',
+			deselectAllText: 'Deselect all',
+			value: []
 		};
 	},
 
@@ -119,18 +125,21 @@ const MultiselectTwoSides = React.createClass({
 
 	render() {
 		const {
-			className,
-			availableHeader,
 			availableFooter,
-			selectedHeader,
-			selectedFooter,
-			showControls,
-			options,
-			value,
-			searchable,
-			placeholder,
+			availableHeader,
+			className,
+			clearFilterText,
 			clearable,
-			disabled
+			deselectAllText,
+			disabled,
+			options,
+			placeholder,
+			searchable,
+			selectAllText,
+			selectedFooter,
+			selectedHeader,
+			showControls,
+			value
 		} = this.props;
 
 		const {
@@ -160,9 +169,7 @@ const MultiselectTwoSides = React.createClass({
 							<Filter
 								value={filterAvailable}
 								onChange={this.handleChangeFilterAvailable}
-								placeholder={placeholder}
-								clearable={clearable}
-								disabled={disabled}
+								{...{placeholder, clearable, disabled, clearFilterText}}
 								/>
 						</div>
 
@@ -170,9 +177,7 @@ const MultiselectTwoSides = React.createClass({
 							<Filter
 								value={filterSelected}
 								onChange={this.handleChangeFilterSelected}
-								placeholder={placeholder}
-								clearable={clearable}
-								disabled={disabled}
+								{...{placeholder, clearable, disabled, clearFilterText}}
 								/>
 						</div>
 					</div>
@@ -192,14 +197,14 @@ const MultiselectTwoSides = React.createClass({
 							<button
 								className="msts__control msts__control_select-all"
 								onClick={this.handleClickSelectAll}
-								title="Select all"
+								title={selectAllText}
 								type="button"
 								disabled={options.length === value.length || disabled}
 								/>
 							<button
 								className="msts__control msts__control_deselect-all"
 								onClick={this.handleClickDeselectAll}
-								title="Deselect all"
+								title={deselectAllText}
 								type="button"
 								disabled={!value.length || disabled}
 								/>
@@ -236,8 +241,8 @@ export default MultiselectTwoSides;
 const List = React.createClass({
 	propTypes: {
 		data: React.PropTypes.array,
-		onClick: React.PropTypes.func,
-		disabled: React.PropTypes.bool
+		disabled: React.PropTypes.bool,
+		onClick: React.PropTypes.func
 	},
 
 	getDefaultProps() {
@@ -278,10 +283,10 @@ const List = React.createClass({
 
 const ListItem = React.createClass({
 	propTypes: {
-		id: React.PropTypes.number,
-		onClick: React.PropTypes.func,
 		children: React.PropTypes.node,
-		disabled: React.PropTypes.bool
+		disabled: React.PropTypes.bool,
+		id: React.PropTypes.number,
+		onClick: React.PropTypes.func
 	},
 
 	handleClick() {
@@ -310,11 +315,12 @@ const ListItem = React.createClass({
 
 const Filter = React.createClass({
 	propTypes: {
-		value: React.PropTypes.string,
+		clearFilterText: React.PropTypes.string,
+		clearable: React.PropTypes.bool,
+		disabled: React.PropTypes.bool,
 		onChange: React.PropTypes.func.isRequired,
 		placeholder: React.PropTypes.string,
-		clearable: React.PropTypes.bool,
-		disabled: React.PropTypes.bool
+		value: React.PropTypes.string
 	},
 
 	handleChange(e) {
@@ -327,10 +333,11 @@ const Filter = React.createClass({
 
 	render() {
 		const {
-			value,
-			placeholder,
+			clearFilterText,
 			clearable,
-			disabled
+			disabled,
+			placeholder,
+			value
 		} = this.props;
 
 		return (
@@ -347,7 +354,7 @@ const Filter = React.createClass({
 					<button
 						className="msts__filter-clear"
 						onClick={this.handleClickClear}
-						title="Clear"
+						title={clearFilterText}
 						type="button"
 						disabled={disabled}
 						/>

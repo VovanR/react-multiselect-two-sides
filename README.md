@@ -78,28 +78,34 @@ ReactDOM.render(<App/>, document.getElementById('app'));
 
 ```js
 MultiselectTwoSides.propTypes = {
-    options: React.PropTypes.array,
-    value: React.PropTypes.array,
-    disabled: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    availableHeader: React.PropTypes.node,
     availableFooter: React.PropTypes.node,
-    selectedHeader: React.PropTypes.node,
-    selectedFooter: React.PropTypes.node,
-    showControls: React.PropTypes.bool,
-    searchable: React.PropTypes.bool,
+    availableHeader: React.PropTypes.node,
+    className: React.PropTypes.string,
+    clearFilterText: React.PropTypes.string,
+    clearable: React.PropTypes.bool,
+    deselectAllText: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    options: React.PropTypes.array,
     placeholder: React.PropTypes.string,
-    clearable: React.PropTypes.bool
+    searchable: React.PropTypes.bool,
+    selectAllText: React.PropTypes.string,
+    selectedFooter: React.PropTypes.node,
+    selectedHeader: React.PropTypes.node,
+    showControls: React.PropTypes.bool,
+    value: React.PropTypes.array
 };
 
 MultiselectTwoSides.defaultProps = {
-    options: [],
-    value: [],
+    clearable: true,
+    clearFilterText: 'Clear',
     disabled: false,
-    showControls: false,
+    options: [],
     searchable: false,
-    clearable: true
+    showControls: false,
+    selectAllText: 'Select all',
+    deselectAllText: 'Deselect all',
+    value: []
 };
 ```
 
