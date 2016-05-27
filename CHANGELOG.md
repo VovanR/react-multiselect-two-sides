@@ -1,3 +1,15 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.7.0...v0.8.0) (2016-05-27)
+
+
+### Features
+
+* **lib:** Add `labelKey` and `valueKey` properties ([be99ac7](https://github.com/vovanr/react-multiselect-two-sides/commit/be99ac7)), closes [#3](https://github.com/vovanr/react-multiselect-two-sides/issues/3)
+* **lib:** Add `labelKey` and `valueKey` properties ([d842bfa](https://github.com/vovanr/react-multiselect-two-sides/commit/d842bfa))
+* **lib:** Add text properties ([0522a05](https://github.com/vovanr/react-multiselect-two-sides/commit/0522a05))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.6.0...v0.7.0) (2016-05-27)
 
