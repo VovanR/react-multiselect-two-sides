@@ -1,3 +1,13 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.6.0...v0.7.0) (2016-05-27)
+
+
+### Features
+
+* **lib:** Add `disabled` property for list item disabling ([a803939](https://github.com/vovanr/react-multiselect-two-sides/commit/a803939)), closes [#7](https://github.com/vovanr/react-multiselect-two-sides/issues/7)
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.5.1...v0.6.0) (2016-05-26)
 
