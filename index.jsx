@@ -10,6 +10,7 @@ const MultiselectTwoSides = React.createClass({
 		clearable: React.PropTypes.bool,
 		deselectAllText: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
+		labelKey: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		options: React.PropTypes.array,
 		placeholder: React.PropTypes.string,
@@ -18,20 +19,23 @@ const MultiselectTwoSides = React.createClass({
 		selectedFooter: React.PropTypes.node,
 		selectedHeader: React.PropTypes.node,
 		showControls: React.PropTypes.bool,
-		value: React.PropTypes.array
+		value: React.PropTypes.array,
+		valueKey: React.PropTypes.string
 	},
 
 	getDefaultProps() {
 		return {
-			clearable: true,
 			clearFilterText: 'Clear',
+			clearable: true,
+			deselectAllText: 'Deselect all',
 			disabled: false,
+			labelKey: 'label',
 			options: [],
 			searchable: false,
-			showControls: false,
 			selectAllText: 'Select all',
-			deselectAllText: 'Deselect all',
-			value: []
+			showControls: false,
+			value: [],
+			valueKey: 'value'
 		};
 	},
 
@@ -42,21 +46,21 @@ const MultiselectTwoSides = React.createClass({
 		};
 	},
 
-	handleClickAvailable(id) {
-		this.props.onChange(this.props.value.concat(id));
+	handleClickAvailable(value) {
+		this.props.onChange(this.props.value.concat(value));
 	},
 
-	handleClickSelected(id) {
-		const {value, onChange} = this.props;
-		const newValue = value.slice();
-		newValue.splice(value.indexOf(id), 1);
+	handleClickSelected(value) {
+		const {value: currentValue, onChange} = this.props;
+		const newValue = currentValue.slice();
+		newValue.splice(currentValue.indexOf(value), 1);
 		onChange(newValue);
 	},
 
 	handleClickSelectAll() {
 		const value = this.props.options.reduce((a, b) => {
 			if (!b.disabled) {
-				a.push(b.id);
+				a.push(b.value);
 			}
 
 			return a;
@@ -70,9 +74,9 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	filterAvailable() {
-		const {options, value} = this.props;
+		const {options, value, labelKey} = this.props;
 		const filtered = options.reduce((a, b) => {
-			if (value.indexOf(b.id) === -1) {
+			if (value.indexOf(b.value) === -1) {
 				a.push(b);
 			}
 			return a;
@@ -85,7 +89,7 @@ const MultiselectTwoSides = React.createClass({
 		const {filterAvailable: filter} = this.state;
 		if (filter) {
 			return filtered.filter(a => {
-				return filterByName(a, filter);
+				return filterByName(a, filter, labelKey);
 			});
 		}
 
@@ -93,9 +97,9 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	filterActive() {
-		const {options, value} = this.props;
+		const {options, value, labelKey, valueKey} = this.props;
 		const filtered = options.reduce((a, b) => {
-			if (value.indexOf(b.id) > -1) {
+			if (value.indexOf(b[valueKey]) > -1) {
 				a.push(b);
 			}
 			return a;
@@ -108,7 +112,7 @@ const MultiselectTwoSides = React.createClass({
 		const {filterSelected: filter} = this.state;
 		if (filter) {
 			return filtered.filter(a => {
-				return filterByName(a, filter);
+				return filterByName(a, filter, labelKey);
 			});
 		}
 
@@ -132,6 +136,7 @@ const MultiselectTwoSides = React.createClass({
 			clearable,
 			deselectAllText,
 			disabled,
+			labelKey,
 			options,
 			placeholder,
 			searchable,
@@ -139,7 +144,8 @@ const MultiselectTwoSides = React.createClass({
 			selectedFooter,
 			selectedHeader,
 			showControls,
-			value
+			value,
+			valueKey
 		} = this.props;
 
 		const {
@@ -186,9 +192,9 @@ const MultiselectTwoSides = React.createClass({
 				<div className="msts__body">
 					<div className="msts__side msts__side_available">
 						<List
-							data={this.filterAvailable()}
+							options={this.filterAvailable()}
 							onClick={this.handleClickAvailable}
-							disabled={disabled}
+							{...{disabled, labelKey, valueKey}}
 							/>
 					</div>
 
@@ -213,9 +219,9 @@ const MultiselectTwoSides = React.createClass({
 
 					<div className="msts__side msts__side_selected">
 						<List
-							data={this.filterActive()}
+							options={this.filterActive()}
 							onClick={this.handleClickSelected}
-							disabled={disabled}
+							{...{disabled, labelKey, valueKey}}
 							/>
 					</div>
 				</div>
@@ -240,40 +246,41 @@ export default MultiselectTwoSides;
 
 const List = React.createClass({
 	propTypes: {
-		data: React.PropTypes.array,
+		options: React.PropTypes.array,
 		disabled: React.PropTypes.bool,
-		onClick: React.PropTypes.func
+		onClick: React.PropTypes.func,
+		labelKey: React.PropTypes.string,
+		valueKey: React.PropTypes.string
 	},
 
 	getDefaultProps() {
 		return {
-			data: []
+			options: []
 		};
 	},
 
-	handleClick(id) {
+	handleClick(value) {
 		if (this.props.disabled) {
 			return;
 		}
 
-		this.props.onClick(id);
+		this.props.onClick(value);
 	},
 
 	render() {
-		const {data} = this.props;
+		const {options, labelKey, valueKey} = this.props;
 
 		return (
 			<ul className="msts__list">
-				{data.map(item => {
+				{options.map(item => {
 					return (
 						<ListItem
 							key={item.id}
-							id={item.id}
 							onClick={this.handleClick}
 							disabled={item.disabled}
-							>
-							{item.name}
-						</ListItem>
+							label={item[labelKey]}
+							value={item[valueKey]}
+							/>
 					);
 				})}
 			</ul>
@@ -285,8 +292,12 @@ const ListItem = React.createClass({
 	propTypes: {
 		children: React.PropTypes.node,
 		disabled: React.PropTypes.bool,
-		id: React.PropTypes.number,
-		onClick: React.PropTypes.func
+		label: React.PropTypes.string,
+		onClick: React.PropTypes.func,
+		value: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.number
+		])
 	},
 
 	handleClick() {
@@ -294,12 +305,12 @@ const ListItem = React.createClass({
 			return;
 		}
 
-		const {onClick, id} = this.props;
-		onClick(id);
+		const {onClick, value} = this.props;
+		onClick(value);
 	},
 
 	render() {
-		const {children, disabled} = this.props;
+		const {label, disabled} = this.props;
 		const className = 'msts__list-item';
 
 		return (
@@ -307,7 +318,7 @@ const ListItem = React.createClass({
 				className={classNames(className, disabled && `${className}_disabled`)}
 				onClick={this.handleClick}
 				>
-				{children}
+				{label}
 			</li>
 		);
 	}
@@ -364,6 +375,6 @@ const Filter = React.createClass({
 	}
 });
 
-function filterByName(a, name) {
-	return a.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+function filterByName(a, name, labelKey) {
+	return a[labelKey].toLowerCase().indexOf(name.toLowerCase()) > -1;
 }

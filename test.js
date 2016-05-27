@@ -43,6 +43,21 @@ test('render childrens', t => {
 	t.is(inc.className, 'msts__side msts__side_selected');
 });
 
+test('render list items', t => {
+	const props = {
+		options: [
+			{label: 'Foo', value: 0, id: 0},
+			{label: 'Bar', value: 1, id: 1}
+		],
+		value: [1]
+	};
+	const result = renderIntoDocument(props);
+
+	const items = getElems(result, 'msts__list-item');
+	t.is(items[0].innerHTML, 'Foo');
+	t.is(items[1].innerHTML, 'Bar');
+});
+
 test('render controls', t => {
 	const props = {
 		showControls: true
@@ -121,8 +136,8 @@ test('disabled: disable controls', t => {
 		showControls: true,
 		disabled: true,
 		options: [
-			{name: 'Foo', value: 0, id: 0},
-			{name: 'Bar', value: 1, id: 1}
+			{label: 'Foo', value: 0, id: 0},
+			{label: 'Bar', value: 1, id: 1}
 		],
 		value: [1]
 	};
@@ -165,7 +180,7 @@ test('disable: disable handle', t => {
 	const props = {
 		disabled: true,
 		options: [
-			{name: 'Foo', value: 0, id: 0}
+			{label: 'Foo', value: 0, id: 0}
 		],
 		onChange() {
 			isChanged = true;
@@ -182,7 +197,7 @@ test('disable option', t => {
 	let isChanged = false;
 	const props = {
 		options: [
-			{name: 'Foo', value: 0, id: 0, disabled: true}
+			{label: 'Foo', value: 0, id: 0, disabled: true}
 		],
 		onChange() {
 			isChanged = true;
@@ -202,8 +217,8 @@ test('dont select disabled option by select all', t => {
 	const props = {
 		showControls: true,
 		options: [
-			{name: 'Foo', value: 0, id: 0, disabled: true},
-			{name: 'Bar', value: 1, id: 1}
+			{label: 'Foo', value: 0, id: 0, disabled: true},
+			{label: 'Bar', value: 1, id: 1}
 		],
 		onChange(value) {
 			t.deepEqual(value, [1]);
@@ -247,6 +262,81 @@ test('prop selectAllText and deselectAllText', t => {
 
 	const deselectAll = getElem(result, 'msts__control_deselect-all');
 	t.is(deselectAll.title, 'Bar');
+});
+
+test('prop labelKey and valueKey', t => {
+	let value = [];
+	const props = {
+		labelKey: 'foo',
+		valueKey: 'bar',
+		options: [
+			{foo: 'Foo', bar: 3, id: 3},
+			{foo: 'Bar', bar: 4, id: 4}
+		],
+		value: [4],
+		onChange(newValue) {
+			value = newValue;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const items = getElems(result, 'msts__list-item');
+	t.is(items.length, 1);
+	t.is(items[0].innerHTML, 'Foo');
+
+	ReactTestUtils.Simulate.click(items[0]);
+	t.deepEqual(value, [3]);
+});
+
+test('prop labelKey and valueKey filterAvailable', t => {
+	const props = {
+		labelKey: 'foo',
+		valueKey: 'bar',
+		searchable: true,
+		options: [
+			{foo: 'Foo', bar: 3, id: 3}
+		]
+	};
+	const result = renderIntoDocument(props);
+
+	const filters = getElems(result, 'msts__filter-input');
+	const availableFilter = filters[0];
+
+	t.is(getElems(result, 'msts__list-item').length, 1);
+
+	availableFilter.value = 'f';
+	ReactTestUtils.Simulate.change(availableFilter);
+	t.is(getElems(result, 'msts__list-item').length, 1);
+
+	availableFilter.value = 'fb';
+	ReactTestUtils.Simulate.change(availableFilter);
+	t.is(getElems(result, 'msts__list-item').length, 0);
+});
+
+test('prop labelKey and valueKey filterSelected', t => {
+	const props = {
+		labelKey: 'foo',
+		valueKey: 'bar',
+		searchable: true,
+		options: [
+			{foo: 'Foo', bar: 3, id: 3}
+		],
+		value: [3]
+	};
+	const result = renderIntoDocument(props);
+
+	const filters = getElems(result, 'msts__filter-input');
+	const availableFilter = filters[1];
+
+	t.is(getElems(result, 'msts__list-item').length, 1);
+
+	availableFilter.value = 'f';
+	ReactTestUtils.Simulate.change(availableFilter);
+	t.is(getElems(result, 'msts__list-item').length, 1, '`f`');
+
+	availableFilter.value = 'fb';
+	ReactTestUtils.Simulate.change(availableFilter);
+	t.is(getElems(result, 'msts__list-item').length, 0, '`fb`');
 });
 
 // Shallow renderer
