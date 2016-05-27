@@ -12,6 +12,7 @@
   "scripts": {
     "prepush": "npm test",
     "test": "xo && ava",
+    "tdd": "ava --watch",
     "start": "webpack --watch",
     "release-patch": "mversion patch",
     "release-minor": "mversion minor",

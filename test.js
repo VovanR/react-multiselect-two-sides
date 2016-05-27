@@ -14,7 +14,7 @@ test.afterEach(() => {
 	delete global.window;
 });
 
-test(t => {
+test('render component', t => {
 	const result = createComponent(C);
 
 	t.is(result.props.className, 'msts');
@@ -34,20 +34,20 @@ test('render childrens', t => {
 	const props = {};
 	const result = renderIntoDocument(props);
 
-	const dec = getSideAvailable(result);
-	t.is(dec.nodeName, 'DIV');
-	t.is(dec.className, 'msts__side msts__side_available');
+	const sideAvailable = getElem(result, 'msts__side_available');
+	t.is(sideAvailable.nodeName, 'DIV');
+	t.is(sideAvailable.className, 'msts__side msts__side_available');
 
-	const inc = getSideSelected(result);
-	t.is(inc.nodeName, 'DIV');
-	t.is(inc.className, 'msts__side msts__side_selected');
+	const sideSelected = getElem(result, 'msts__side_selected');
+	t.is(sideSelected.nodeName, 'DIV');
+	t.is(sideSelected.className, 'msts__side msts__side_selected');
 });
 
 test('render list items', t => {
 	const props = {
 		options: [
-			{label: 'Foo', value: 0, id: 0},
-			{label: 'Bar', value: 1, id: 1}
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1}
 		],
 		value: [1]
 	};
@@ -64,16 +64,16 @@ test('render controls', t => {
 	};
 	const result = renderIntoDocument(props);
 
-	const dec = getElem(result, 'msts__side_controls');
-	t.is(dec.nodeName, 'DIV');
-	t.is(dec.className, 'msts__side msts__side_controls');
+	const controls = getElem(result, 'msts__side_controls');
+	t.is(controls.nodeName, 'DIV');
+	t.is(controls.className, 'msts__side msts__side_controls');
 });
 
 test('dont render controls by default', t => {
 	const props = {};
 	const result = renderIntoDocument(props);
 
-	t.throws(() => getElem(result, 'msts__side_controls'));
+	t.is(getElems(result, 'msts__side_controls').length, 0);
 });
 
 test('render filter', t => {
@@ -91,7 +91,7 @@ test('dont render filter by default', t => {
 	const props = {};
 	const result = renderIntoDocument(props);
 
-	t.throws(() => getElem(result, 'msts__subheading'));
+	t.is(getElems(result, 'msts__subheading').length, 0);
 });
 
 test('render filter clear', t => {
@@ -131,13 +131,13 @@ test('dont render filter clear if `clearable` is false', t => {
 	t.is(getElems(result, 'msts__filter-clear').length, 0);
 });
 
-test('disabled: disable controls', t => {
+test('`disabled`: disable controls', t => {
 	const props = {
 		showControls: true,
 		disabled: true,
 		options: [
-			{label: 'Foo', value: 0, id: 0},
-			{label: 'Bar', value: 1, id: 1}
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1}
 		],
 		value: [1]
 	};
@@ -148,7 +148,7 @@ test('disabled: disable controls', t => {
 	t.is(controls[1].disabled, true);
 });
 
-test('disabled: disable filter', t => {
+test('`disabled`: disable filter', t => {
 	const props = {
 		searchable: true,
 		disabled: true
@@ -169,18 +169,18 @@ test('disabled: disable filter', t => {
 	t.is(filterClears[1].disabled, true);
 });
 
-test('disabled: disable component', t => {
+test('`disabled`: disable component', t => {
 	const result = createComponent(C, {disabled: true});
 
 	t.is(result.props.className, 'msts msts_disabled');
 });
 
-test('disable: disable handle', t => {
+test('`disabled`: disable handle', t => {
 	let isChanged = false;
 	const props = {
 		disabled: true,
 		options: [
-			{label: 'Foo', value: 0, id: 0}
+			{label: 'Foo', value: 0}
 		],
 		onChange() {
 			isChanged = true;
@@ -193,11 +193,11 @@ test('disable: disable handle', t => {
 	t.false(isChanged);
 });
 
-test('disable option', t => {
+test('`disabled`: disable option', t => {
 	let isChanged = false;
 	const props = {
 		options: [
-			{label: 'Foo', value: 0, id: 0, disabled: true}
+			{label: 'Foo', value: 0, disabled: true}
 		],
 		onChange() {
 			isChanged = true;
@@ -212,22 +212,22 @@ test('disable option', t => {
 });
 
 test('dont select disabled option by select all', t => {
-	t.plan(1);
-
+	let value = [];
 	const props = {
 		showControls: true,
 		options: [
-			{label: 'Foo', value: 0, id: 0, disabled: true},
-			{label: 'Bar', value: 1, id: 1}
+			{label: 'Foo', value: 0, disabled: true},
+			{label: 'Bar', value: 1}
 		],
-		onChange(value) {
-			t.deepEqual(value, [1]);
+		onChange(newValue) {
+			value = newValue;
 		}
 	};
 	const result = renderIntoDocument(props);
 
 	const selectAll = getElem(result, 'msts__control_select-all');
 	ReactTestUtils.Simulate.click(selectAll);
+	t.deepEqual(value, [1]);
 });
 
 test('prop clearFilterText', t => {
@@ -270,8 +270,8 @@ test('prop labelKey and valueKey', t => {
 		labelKey: 'foo',
 		valueKey: 'bar',
 		options: [
-			{foo: 'Foo', bar: 3, id: 3},
-			{foo: 'Bar', bar: 4, id: 4}
+			{foo: 'Foo', bar: 3},
+			{foo: 'Bar', bar: 4}
 		],
 		value: [4],
 		onChange(newValue) {
@@ -281,11 +281,37 @@ test('prop labelKey and valueKey', t => {
 	const result = renderIntoDocument(props);
 
 	const items = getElems(result, 'msts__list-item');
-	t.is(items.length, 1);
+	t.is(items.length, 2);
 	t.is(items[0].innerHTML, 'Foo');
 
 	ReactTestUtils.Simulate.click(items[0]);
-	t.deepEqual(value, [3]);
+	t.deepEqual(value, [4, 3]);
+});
+
+test('prop labelKey and valueKey controls', t => {
+	let value = [];
+	const props = {
+		labelKey: 'foo',
+		valueKey: 'bar',
+		showControls: true,
+		options: [
+			{foo: 'Foo', bar: 3},
+			{foo: 'Bar', bar: 4}
+		],
+		value: [4],
+		onChange(newValue) {
+			value = newValue;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const selectAll = getElem(result, 'msts__control_select-all');
+	ReactTestUtils.Simulate.click(selectAll);
+	t.deepEqual(value, [3, 4]);
+
+	const deselectAll = getElem(result, 'msts__control_deselect-all');
+	ReactTestUtils.Simulate.click(deselectAll);
+	t.deepEqual(value, []);
 });
 
 test('prop labelKey and valueKey filterAvailable', t => {
@@ -294,7 +320,7 @@ test('prop labelKey and valueKey filterAvailable', t => {
 		valueKey: 'bar',
 		searchable: true,
 		options: [
-			{foo: 'Foo', bar: 3, id: 3}
+			{foo: 'Foo', bar: 3}
 		]
 	};
 	const result = renderIntoDocument(props);
@@ -319,16 +345,16 @@ test('prop labelKey and valueKey filterSelected', t => {
 		valueKey: 'bar',
 		searchable: true,
 		options: [
-			{foo: 'Foo', bar: 3, id: 3}
+			{foo: 'Foo', bar: 3}
 		],
 		value: [3]
 	};
 	const result = renderIntoDocument(props);
 
+	t.is(getElems(result, 'msts__list-item').length, 1);
+
 	const filters = getElems(result, 'msts__filter-input');
 	const availableFilter = filters[1];
-
-	t.is(getElems(result, 'msts__list-item').length, 1);
 
 	availableFilter.value = 'f';
 	ReactTestUtils.Simulate.change(availableFilter);
@@ -349,14 +375,6 @@ function createComponent(component, props = {}) {
 // Document renderer
 function renderIntoDocument(props) {
 	return ReactTestUtils.renderIntoDocument(React.createElement(C, props));
-}
-
-function getSideAvailable(component) {
-	return getElem(component, 'msts__side_available');
-}
-
-function getSideSelected(component) {
-	return getElem(component, 'msts__side_selected');
 }
 
 function getElem(component, className) {

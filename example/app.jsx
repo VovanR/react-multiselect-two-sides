@@ -40,19 +40,19 @@ const App = React.createClass({
 	getInitialState() {
 		return {
 			options: [
-				{label: 'Foo', value: 0, id: 0},
-				{label: 'Bar', value: 1, id: 1},
-				{label: 'Baz', value: 2, id: 2, disabled: true},
-				{label: 'Qux', value: 3, id: 3},
-				{label: 'Quux', value: 4, id: 4},
-				{label: 'Corge', value: 5, id: 5},
-				{label: 'Grault', value: 6, id: 6},
-				{label: 'Garply', value: 7, id: 7},
-				{label: 'Waldo', value: 8, id: 8},
-				{label: 'Fred', value: 9, id: 9},
-				{label: 'Plugh', value: 10, id: 10},
-				{label: 'Xyzzy', value: 11, id: 11},
-				{label: 'Thud', value: 12, id: 12}
+				{label: 'Foo', value: 0},
+				{label: 'Bar', value: 1},
+				{label: 'Baz', value: 2, disabled: true},
+				{label: 'Qux', value: 3},
+				{label: 'Quux', value: 4},
+				{label: 'Corge', value: 5},
+				{label: 'Grault', value: 6},
+				{label: 'Garply', value: 7},
+				{label: 'Waldo', value: 8},
+				{label: 'Fred', value: 9},
+				{label: 'Plugh', value: 10},
+				{label: 'Xyzzy', value: 11},
+				{label: 'Thud', value: 12}
 			],
 			value: [0, 3, 5, 9],
 			settings: [

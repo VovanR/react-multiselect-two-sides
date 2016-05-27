@@ -58,15 +58,17 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	handleClickSelectAll() {
-		const value = this.props.options.reduce((a, b) => {
+		const {options, valueKey, onChange} = this.props;
+
+		const value = options.reduce((a, b) => {
 			if (!b.disabled) {
-				a.push(b.value);
+				a.push(b[valueKey]);
 			}
 
 			return a;
 		}, []);
 
-		this.props.onChange(value);
+		onChange(value);
 	},
 
 	handleClickDeselectAll() {
@@ -74,9 +76,9 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	filterAvailable() {
-		const {options, value, labelKey} = this.props;
+		const {options, value, labelKey, valueKey} = this.props;
 		const filtered = options.reduce((a, b) => {
-			if (value.indexOf(b.value) === -1) {
+			if (value.indexOf(b[valueKey]) === -1) {
 				a.push(b);
 			}
 			return a;
@@ -275,7 +277,7 @@ const List = React.createClass({
 				{options.map(item => {
 					return (
 						<ListItem
-							key={item.id}
+							key={item[valueKey]}
 							onClick={this.handleClick}
 							disabled={item.disabled}
 							label={item[labelKey]}
