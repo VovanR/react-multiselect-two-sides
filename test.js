@@ -113,7 +113,7 @@ test('render filter clear', t => {
 
 	const filterClear = getElems(result, 'msts__filter-clear');
 	t.is(filterClear.length, 2);
-	t.is(filterClear[0].nodeName, 'BUTTON');
+	t.is(filterClear[0].nodeName, 'SPAN');
 	t.is(filterClear[0].className, 'msts__filter-clear');
 });
 
@@ -165,8 +165,7 @@ test('`disabled`: disable filter', t => {
 	ReactTestUtils.Simulate.change(filters[1]);
 
 	const filterClears = getElems(result, 'msts__filter-clear');
-	t.is(filterClears[0].disabled, true);
-	t.is(filterClears[1].disabled, true);
+	t.is(filterClears.length, 0, 'dont render clear buttons');
 });
 
 test('`disabled`: disable component', t => {

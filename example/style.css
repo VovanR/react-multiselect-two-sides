@@ -102,8 +102,6 @@
 	}
 
 	.msts__filter-clear {
-		background: none;
-		border: none;
 		cursor: pointer;
 		position: absolute;
 		top: 0;

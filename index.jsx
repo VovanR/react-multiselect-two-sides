@@ -363,13 +363,11 @@ const Filter = React.createClass({
 					placeholder={placeholder}
 					disabled={disabled}
 					/>
-				{clearable && value ? (
-					<button
+				{clearable && value && !disabled ? (
+					<span
 						className="msts__filter-clear"
 						onClick={this.handleClickClear}
 						title={clearFilterText}
-						type="button"
-						disabled={disabled}
 						/>
 				) : null}
 			</div>
