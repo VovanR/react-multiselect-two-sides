@@ -11,6 +11,7 @@ const MultiselectTwoSides = React.createClass({
 		deselectAllText: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		labelKey: React.PropTypes.string,
+		limit: React.PropTypes.number,
 		onChange: React.PropTypes.func,
 		options: React.PropTypes.array,
 		placeholder: React.PropTypes.string,
@@ -58,17 +59,26 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	handleClickSelectAll() {
-		const {options, valueKey, onChange} = this.props;
+		const {limit, options, valueKey, onChange, value} = this.props;
 
-		const value = options.reduce((a, b) => {
-			if (!b.disabled) {
+		const previousValue = value.slice();
+
+		const newValue = options.reduce((a, b) => {
+			if (!b.disabled && previousValue.indexOf(b[valueKey]) === -1) {
 				a.push(b[valueKey]);
 			}
 
 			return a;
-		}, []);
+		}, previousValue);
 
-		onChange(value);
+		let limitedValue = newValue;
+		if (limit >= 0) {
+			limitedValue = limitedValue.slice(0, limit);
+		}
+
+		limitedValue.sort();
+
+		onChange(limitedValue);
 	},
 
 	handleClickDeselectAll() {
@@ -76,7 +86,7 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	filterAvailable() {
-		const {options, value, labelKey, valueKey} = this.props;
+		const {options, value, labelKey, limit, valueKey} = this.props;
 		const filtered = options.reduce((a, b) => {
 			if (value.indexOf(b[valueKey]) === -1) {
 				a.push(b);
@@ -84,18 +94,25 @@ const MultiselectTwoSides = React.createClass({
 			return a;
 		}, []);
 
+		let limited = filtered;
+		if (value.length >= limit) {
+			limited = filtered.map(item => {
+				return Object.assign({}, item, {disabled: true});
+			});
+		}
+
 		if (!this.props.searchable) {
-			return filtered;
+			return limited;
 		}
 
 		const {filterAvailable: filter} = this.state;
 		if (filter) {
-			return filtered.filter(a => {
+			return limited.filter(a => {
 				return filterByName(a, filter, labelKey);
 			});
 		}
 
-		return filtered;
+		return limited;
 	},
 
 	filterActive() {
@@ -139,6 +156,7 @@ const MultiselectTwoSides = React.createClass({
 			deselectAllText,
 			disabled,
 			labelKey,
+			limit,
 			options,
 			placeholder,
 			searchable,
@@ -207,8 +225,9 @@ const MultiselectTwoSides = React.createClass({
 								onClick={this.handleClickSelectAll}
 								title={selectAllText}
 								type="button"
-								disabled={options.length === value.length || disabled}
+								disabled={value.length === options.length || value.length >= limit || disabled}
 								/>
+
 							<button
 								className="msts__control msts__control_deselect-all"
 								onClick={this.handleClickDeselectAll}

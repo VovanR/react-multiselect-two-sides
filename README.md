@@ -42,7 +42,7 @@ const App = React.createClass({
                 {name: 'Xyzzy', value: 11},
                 {name: 'Thud', value: 12}
             ],
-            value: [0, 3, 5, 9]
+            value: [0, 3, 9]
         };
     },
 
@@ -86,6 +86,7 @@ MultiselectTwoSides.propTypes = {
     deselectAllText: React.PropTypes.string,
     disabled: React.PropTypes.bool,
     labelKey: React.PropTypes.string,
+    limit: React.PropTypes.number,
     onChange: React.PropTypes.func,
     options: React.PropTypes.array,
     placeholder: React.PropTypes.string,

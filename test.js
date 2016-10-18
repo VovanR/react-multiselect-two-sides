@@ -364,6 +364,56 @@ test('prop labelKey and valueKey filterSelected', t => {
 	t.is(getElems(result, 'msts__list-item').length, 0, '`fb`');
 });
 
+test('limit list', t => {
+	let isChanged = false;
+	const props = {
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1},
+			{label: 'Baz', value: 2},
+			{label: 'Qux', value: 3},
+			{label: 'Quux', value: 4}
+		],
+		limit: 3,
+		value: [0, 1, 2],
+		onChange() {
+			isChanged = true;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const items = getElems(result, 'msts__list-item');
+
+	ReactTestUtils.Simulate.click(items[0]);
+
+	t.is(items[0].className, 'msts__list-item msts__list-item_disabled');
+	t.is(items[1].className, 'msts__list-item msts__list-item_disabled');
+	t.false(isChanged);
+});
+
+test('limit list selectall', t => {
+	let value = [];
+	const props = {
+		showControls: true,
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1, disabled: true},
+			{label: 'Baz', value: 2},
+			{label: 'Qux', value: 3},
+			{label: 'Quux', value: 4}
+		],
+		value: [4],
+		limit: 3,
+		onChange(newValue) {
+			value = newValue;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const selectAll = getElem(result, 'msts__control_select-all');
+	ReactTestUtils.Simulate.click(selectAll);
+	t.deepEqual(value, [0, 2, 4]);
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

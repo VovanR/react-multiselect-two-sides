@@ -54,7 +54,7 @@ const App = React.createClass({
 				{label: 'Xyzzy', value: 11},
 				{label: 'Thud', value: 12}
 			],
-			value: [0, 3, 5, 9],
+			value: [0, 3, 9],
 			settings: [
 				{
 					label: 'Show controls',
@@ -75,6 +75,11 @@ const App = React.createClass({
 					label: 'Disabled',
 					name: 'disabled',
 					value: false
+				},
+				{
+					label: 'Limit',
+					name: 'limit',
+					value: 5
 				}
 			]
 		};
@@ -85,11 +90,11 @@ const App = React.createClass({
 	},
 
 	handleChangeSetting(e) {
-		const name = e.target.name;
+		const {name, value} = e.target;
 
 		this.setState(state => {
 			const setting = this.getSettingByName(state, name);
-			const newValue = !setting.value;
+			const newValue = typeof setting.value === 'boolean' ? !setting.value : parseInt(value, 10);
 			setting.value = newValue;
 
 			if (name === 'searchable') {
@@ -126,13 +131,31 @@ const App = React.createClass({
 			<div className="">
 				<p className="">
 					{settings.map(setting => {
-						return (
-							<Checkbox
-								key={setting.name}
-								onChange={this.handleChangeSetting}
-								{...setting}
-								/>
-						);
+						if (typeof setting.value === 'boolean') {
+							return (
+								<Checkbox
+									key={setting.name}
+									onChange={this.handleChangeSetting}
+									{...setting}
+									/>
+							);
+						} else if (typeof setting.value === 'number') {
+							return (
+								<label>
+									{` ${setting.label}: `}
+
+									<input
+										key={setting.name}
+										onChange={this.handleChangeSetting}
+										type="number"
+										min="0"
+										{...setting}
+										/>
+								</label>
+							);
+						}
+
+						return null;
 					})}
 				</p>
 
