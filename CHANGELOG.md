@@ -1,3 +1,13 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.8.1...v0.9.0) (2016-10-18)
+
+
+### Features
+
+* **lib:** Add `limit` property ([25ef541](https://github.com/vovanr/react-multiselect-two-sides/commit/25ef541)), closes [#9](https://github.com/vovanr/react-multiselect-two-sides/issues/9)
+
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.8.0...v0.8.1) (2016-05-30)
 
