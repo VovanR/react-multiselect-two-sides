@@ -1,4 +1,6 @@
-/* global document, React, ReactDOM */
+/* global document React ReactDOM */
+/* eslint import/no-unassigned-import: 0 */
+/* eslint react/forbid-component-props: 0 */
 
 import MultiselectTwoSides from '../index.jsx';
 
@@ -7,11 +9,11 @@ require('./style.css');
 
 const Checkbox = React.createClass({
 	propTypes: {
+		disabled: React.PropTypes.bool,
 		label: React.PropTypes.string.isRequired,
 		name: React.PropTypes.string.isRequired,
-		value: React.PropTypes.bool.isRequired,
-		disabled: React.PropTypes.bool,
-		onChange: React.PropTypes.func.isRequired
+		onChange: React.PropTypes.func.isRequired,
+		value: React.PropTypes.bool.isRequired
 	},
 
 	handleChange(e) {
@@ -19,17 +21,25 @@ const Checkbox = React.createClass({
 	},
 
 	render() {
-		const {label, name, value, disabled} = this.props;
+		const {
+			disabled,
+			label,
+			name,
+			value: checked
+		} = this.props;
 
 		return (
 			<label>
 				<input
 					onChange={this.handleChange}
-					name={name}
-					checked={value}
 					type="checkbox"
-					disabled={disabled}
+					{...{
+						checked,
+						disabled,
+						name
+					}}
 					/>
+
 				{label}
 			</label>
 		);
@@ -90,7 +100,10 @@ const App = React.createClass({
 	},
 
 	handleChangeSetting(e) {
-		const {name, value} = e.target;
+		const {
+			name,
+			value
+		} = e.target;
 
 		this.setState(state => {
 			const setting = this.getSettingByName(state, name);
@@ -119,7 +132,11 @@ const App = React.createClass({
 	},
 
 	render() {
-		const {options, value, settings} = this.state;
+		const {
+			options,
+			settings,
+			value
+		} = this.state;
 		const selectedCount = value.length;
 		const availableCount = options.length - selectedCount;
 		const s = settings.reduce((a, b) => {
@@ -141,11 +158,12 @@ const App = React.createClass({
 							);
 						} else if (typeof setting.value === 'number') {
 							return (
-								<label>
+								<label
+									key={setting.name}
+									>
 									{` ${setting.label}: `}
 
 									<input
-										key={setting.name}
 										onChange={this.handleChangeSetting}
 										type="number"
 										min="0"
@@ -160,7 +178,6 @@ const App = React.createClass({
 				</p>
 
 				<MultiselectTwoSides
-					{...{options, value}}
 					className="msts_theme_example"
 					onChange={this.handleChange}
 					availableHeader="Available"
@@ -168,6 +185,10 @@ const App = React.createClass({
 					selectedHeader="Selected"
 					selectedFooter={`Selected: ${selectedCount}`}
 					placeholder="Filter…"
+					{...{
+						options,
+						value
+					}}
 					{...s}
 					/>
 			</div>

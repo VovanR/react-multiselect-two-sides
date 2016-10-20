@@ -52,22 +52,30 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	handleClickSelected(value) {
-		const {value: currentValue, onChange} = this.props;
+		const {
+			onChange,
+			value: currentValue
+		} = this.props;
 		const newValue = currentValue.slice();
+
 		newValue.splice(currentValue.indexOf(value), 1);
 		onChange(newValue);
 	},
 
 	handleClickSelectAll() {
-		const {limit, options, valueKey, onChange, value} = this.props;
-
+		const {
+			limit,
+			onChange,
+			options,
+			value,
+			valueKey
+		} = this.props;
 		const previousValue = value.slice();
 
 		const newValue = options.reduce((a, b) => {
 			if (!b.disabled && previousValue.indexOf(b[valueKey]) === -1) {
 				a.push(b[valueKey]);
 			}
-
 			return a;
 		}, previousValue);
 
@@ -86,7 +94,13 @@ const MultiselectTwoSides = React.createClass({
 	},
 
 	filterAvailable() {
-		const {options, value, labelKey, limit, valueKey} = this.props;
+		const {
+			labelKey,
+			limit,
+			options,
+			value,
+			valueKey
+		} = this.props;
 		const filtered = options.reduce((a, b) => {
 			if (value.indexOf(b[valueKey]) === -1) {
 				a.push(b);
@@ -105,18 +119,23 @@ const MultiselectTwoSides = React.createClass({
 			return limited;
 		}
 
-		const {filterAvailable: filter} = this.state;
+		const {
+			filterAvailable: filter
+		} = this.state;
 		if (filter) {
-			return limited.filter(a => {
-				return filterByName(a, filter, labelKey);
-			});
+			return limited.filter(a => (filterByName(a, filter, labelKey)));
 		}
 
 		return limited;
 	},
 
 	filterActive() {
-		const {options, value, labelKey, valueKey} = this.props;
+		const {
+			labelKey,
+			options,
+			value,
+			valueKey
+		} = this.props;
 		const filtered = options.reduce((a, b) => {
 			if (value.indexOf(b[valueKey]) > -1) {
 				a.push(b);
@@ -130,20 +149,18 @@ const MultiselectTwoSides = React.createClass({
 
 		const {filterSelected: filter} = this.state;
 		if (filter) {
-			return filtered.filter(a => {
-				return filterByName(a, filter, labelKey);
-			});
+			return filtered.filter(a => (filterByName(a, filter, labelKey)));
 		}
 
 		return filtered;
 	},
 
-	handleChangeFilterAvailable(value) {
-		this.setState({filterAvailable: value});
+	handleChangeFilterAvailable(filterAvailable) {
+		this.setState({filterAvailable});
 	},
 
-	handleChangeFilterSelected(value) {
-		this.setState({filterSelected: value});
+	handleChangeFilterSelected(filterSelected) {
+		this.setState({filterSelected});
 	},
 
 	render() {
@@ -195,7 +212,12 @@ const MultiselectTwoSides = React.createClass({
 							<Filter
 								value={filterAvailable}
 								onChange={this.handleChangeFilterAvailable}
-								{...{placeholder, clearable, disabled, clearFilterText}}
+								{...{
+									clearFilterText,
+									clearable,
+									disabled,
+									placeholder
+								}}
 								/>
 						</div>
 
@@ -203,7 +225,12 @@ const MultiselectTwoSides = React.createClass({
 							<Filter
 								value={filterSelected}
 								onChange={this.handleChangeFilterSelected}
-								{...{placeholder, clearable, disabled, clearFilterText}}
+								{...{
+									clearFilterText,
+									clearable,
+									disabled,
+									placeholder
+								}}
 								/>
 						</div>
 					</div>
@@ -214,7 +241,11 @@ const MultiselectTwoSides = React.createClass({
 						<List
 							options={this.filterAvailable()}
 							onClick={this.handleClickAvailable}
-							{...{disabled, labelKey, valueKey}}
+							{...{
+								disabled,
+								labelKey,
+								valueKey
+							}}
 							/>
 					</div>
 
@@ -242,7 +273,11 @@ const MultiselectTwoSides = React.createClass({
 						<List
 							options={this.filterActive()}
 							onClick={this.handleClickSelected}
-							{...{disabled, labelKey, valueKey}}
+							{...{
+								disabled,
+								labelKey,
+								valueKey
+							}}
 							/>
 					</div>
 				</div>
@@ -267,10 +302,10 @@ export default MultiselectTwoSides;
 
 const List = React.createClass({
 	propTypes: {
-		options: React.PropTypes.array,
 		disabled: React.PropTypes.bool,
-		onClick: React.PropTypes.func,
 		labelKey: React.PropTypes.string,
+		onClick: React.PropTypes.func,
+		options: React.PropTypes.array,
 		valueKey: React.PropTypes.string
 	},
 
@@ -289,21 +324,23 @@ const List = React.createClass({
 	},
 
 	render() {
-		const {options, labelKey, valueKey} = this.props;
+		const {
+			labelKey,
+			options,
+			valueKey
+		} = this.props;
 
 		return (
 			<ul className="msts__list">
-				{options.map(item => {
-					return (
-						<ListItem
-							key={item[valueKey]}
-							onClick={this.handleClick}
-							disabled={item.disabled}
-							label={item[labelKey]}
-							value={item[valueKey]}
-							/>
-					);
-				})}
+				{options.map(item => (
+					<ListItem
+						key={item[valueKey]}
+						onClick={this.handleClick}
+						disabled={item.disabled}
+						label={item[labelKey]}
+						value={item[valueKey]}
+						/>
+				))}
 			</ul>
 		);
 	}
@@ -311,13 +348,12 @@ const List = React.createClass({
 
 const ListItem = React.createClass({
 	propTypes: {
-		children: React.PropTypes.node,
 		disabled: React.PropTypes.bool,
 		label: React.PropTypes.string,
 		onClick: React.PropTypes.func,
 		value: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.number
+			React.PropTypes.number,
+			React.PropTypes.string
 		])
 	},
 
@@ -326,12 +362,18 @@ const ListItem = React.createClass({
 			return;
 		}
 
-		const {onClick, value} = this.props;
+		const {
+			onClick,
+			value
+		} = this.props;
 		onClick(value);
 	},
 
 	render() {
-		const {label, disabled} = this.props;
+		const {
+			label,
+			disabled
+		} = this.props;
 		const className = 'msts__list-item';
 
 		return (
@@ -376,12 +418,15 @@ const Filter = React.createClass({
 			<div className="msts__filter">
 				<input
 					className="msts__filter-input"
-					value={value}
 					onChange={this.handleChange}
 					type="text"
-					placeholder={placeholder}
-					disabled={disabled}
+					{...{
+						disabled,
+						placeholder,
+						value
+					}}
 					/>
+
 				{clearable && value && !disabled ? (
 					<span
 						className="msts__filter-clear"
