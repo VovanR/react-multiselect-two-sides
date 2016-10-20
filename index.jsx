@@ -10,6 +10,7 @@ const MultiselectTwoSides = React.createClass({
 		clearable: React.PropTypes.bool,
 		deselectAllText: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
+		filterComponent: React.PropTypes.func,
 		labelKey: React.PropTypes.string,
 		limit: React.PropTypes.number,
 		onChange: React.PropTypes.func,
@@ -163,19 +164,50 @@ const MultiselectTwoSides = React.createClass({
 		this.setState({filterSelected});
 	},
 
+	renderFilter(value, onChange) {
+		const {
+			clearFilterText,
+			clearable,
+			disabled,
+			filterComponent,
+			placeholder
+		} = this.props;
+
+		if (!filterComponent) {
+			return (
+				<Filter
+					value={value}
+					onChange={onChange}
+					{...{
+						clearFilterText,
+						clearable,
+						disabled,
+						placeholder
+					}}
+					/>
+			);
+		}
+
+		return React.createElement(filterComponent, {
+			clearFilterText,
+			clearable,
+			disabled,
+			onChange,
+			placeholder,
+			value
+		});
+	},
+
 	render() {
 		const {
 			availableFooter,
 			availableHeader,
 			className,
-			clearFilterText,
-			clearable,
 			deselectAllText,
 			disabled,
 			labelKey,
 			limit,
 			options,
-			placeholder,
 			searchable,
 			selectAllText,
 			selectedFooter,
@@ -209,29 +241,11 @@ const MultiselectTwoSides = React.createClass({
 				{searchable ? (
 					<div className="msts__subheading">
 						<div className="msts__side msts__side_filter">
-							<Filter
-								value={filterAvailable}
-								onChange={this.handleChangeFilterAvailable}
-								{...{
-									clearFilterText,
-									clearable,
-									disabled,
-									placeholder
-								}}
-								/>
+							{this.renderFilter(filterAvailable, this.handleChangeFilterAvailable)}
 						</div>
 
 						<div className="msts__side msts__side_filter">
-							<Filter
-								value={filterSelected}
-								onChange={this.handleChangeFilterSelected}
-								{...{
-									clearFilterText,
-									clearable,
-									disabled,
-									placeholder
-								}}
-								/>
+							{this.renderFilter(filterSelected, this.handleChangeFilterSelected)}
 						</div>
 					</div>
 				) : null}
