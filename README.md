@@ -85,6 +85,7 @@ MultiselectTwoSides.propTypes = {
     clearable: React.PropTypes.bool,
     deselectAllText: React.PropTypes.string,
     disabled: React.PropTypes.bool,
+    filterComponent: React.PropTypes.func,
     labelKey: React.PropTypes.string,
     limit: React.PropTypes.number,
     onChange: React.PropTypes.func,
