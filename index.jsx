@@ -11,6 +11,7 @@ const MultiselectTwoSides = React.createClass({
 		deselectAllText: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		filterComponent: React.PropTypes.func,
+		highlight: React.PropTypes.array,
 		labelKey: React.PropTypes.string,
 		limit: React.PropTypes.number,
 		onChange: React.PropTypes.func,
@@ -31,6 +32,7 @@ const MultiselectTwoSides = React.createClass({
 			clearable: true,
 			deselectAllText: 'Deselect all',
 			disabled: false,
+			highlight: [],
 			labelKey: 'label',
 			options: [],
 			searchable: false,
@@ -96,6 +98,7 @@ const MultiselectTwoSides = React.createClass({
 
 	filterAvailable() {
 		const {
+			highlight,
 			labelKey,
 			limit,
 			options,
@@ -113,6 +116,15 @@ const MultiselectTwoSides = React.createClass({
 		if (value.length >= limit) {
 			limited = filtered.map(item => {
 				return Object.assign({}, item, {disabled: true});
+			});
+		}
+
+		if (highlight && highlight.length > 0) {
+			limited = limited.map(item => {
+				if (highlight.indexOf(item[valueKey]) > -1) {
+					return Object.assign({}, item, {highlighted: true});
+				}
+				return item;
 			});
 		}
 
@@ -351,6 +363,7 @@ const List = React.createClass({
 						key={item[valueKey]}
 						onClick={this.handleClick}
 						disabled={item.disabled}
+						highlighted={item.highlighted}
 						label={item[labelKey]}
 						value={item[valueKey]}
 						/>
@@ -363,6 +376,7 @@ const List = React.createClass({
 const ListItem = React.createClass({
 	propTypes: {
 		disabled: React.PropTypes.bool,
+		highlighted: React.PropTypes.bool,
 		label: React.PropTypes.string,
 		onClick: React.PropTypes.func,
 		value: React.PropTypes.oneOfType([
@@ -385,14 +399,15 @@ const ListItem = React.createClass({
 
 	render() {
 		const {
-			label,
-			disabled
+			disabled,
+			highlighted,
+			label
 		} = this.props;
 		const className = 'msts__list-item';
 
 		return (
 			<li
-				className={classNames(className, disabled && `${className}_disabled`)}
+				className={classNames(className, disabled && `${className}_disabled`, highlighted && `${className}_highlighted`)}
 				onClick={this.handleClick}
 				>
 				{label}

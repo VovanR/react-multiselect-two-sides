@@ -213,6 +213,20 @@ test('dont select disabled option by select all', t => {
 	t.deepEqual(value, [1]);
 });
 
+test('`highlight`: highlight option', t => {
+	const props = {
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1}
+		],
+		highlight: [1]
+	};
+	const wrapper = mount(<C {...props}/>);
+	const items = wrapper.find('.msts__list-item');
+	t.is(items.at(0).props().className, 'msts__list-item');
+	t.is(items.at(1).props().className, 'msts__list-item msts__list-item_highlighted');
+});
+
 test('prop clearFilterText', t => {
 	const props = {
 		searchable: true,

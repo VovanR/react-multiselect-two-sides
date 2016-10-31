@@ -65,6 +65,7 @@ const App = React.createClass({
 				{label: 'Thud', value: 12}
 			],
 			value: [0, 3, 9],
+			highlight: [5, 8, 9],
 			settings: [
 				{
 					label: 'Show controls',
@@ -133,6 +134,7 @@ const App = React.createClass({
 
 	render() {
 		const {
+			highlight,
 			options,
 			settings,
 			value
@@ -145,8 +147,8 @@ const App = React.createClass({
 		}, {});
 
 		return (
-			<div className="">
-				<p className="">
+			<div>
+				<p>
 					{settings.map(setting => {
 						if (typeof setting.value === 'boolean') {
 							return (
@@ -187,6 +189,7 @@ const App = React.createClass({
 					placeholder="Filter…"
 					{...{
 						options,
+						highlight,
 						value
 					}}
 					{...s}
