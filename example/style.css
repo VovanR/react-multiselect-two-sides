@@ -59,6 +59,10 @@
 				color: #7f8c8d;
 			}
 		}
+
+		&_highlighted {
+			background-color: rgba(41, 128, 185, 0.25);
+		}
 	}
 
 	.msts__control {
