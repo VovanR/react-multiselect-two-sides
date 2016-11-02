@@ -1,3 +1,13 @@
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.10.0...v0.11.0) (2016-11-02)
+
+
+### Features
+
+* **lib:** Add `highlight` property ([2ff7308](https://github.com/vovanr/react-multiselect-two-sides/commit/2ff7308)), closes [#10](https://github.com/vovanr/react-multiselect-two-sides/issues/10)
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.9.0...v0.10.0) (2016-10-21)
 
