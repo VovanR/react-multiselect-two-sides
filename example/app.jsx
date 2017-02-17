@@ -1,5 +1,4 @@
 /* global document React ReactDOM */
-/* eslint import/no-unassigned-import: 0 */
 /* eslint react/forbid-component-props: 0 */
 
 import MultiselectTwoSides from '../index.jsx';

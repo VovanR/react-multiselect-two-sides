@@ -1,36 +1,44 @@
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
 	entry: [
 		'./example/app.jsx'
 	],
-	devtool: 'eval',
 	output: {
 		path: './example',
-		filename: 'bundle.js',
-		publicPath: '/static/'
+		filename: 'bundle.js'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx$/,
-				loader: 'babel'
+				use: 'babel-loader',
+				exclude: /node_modules/
 			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader!postcss-loader'
+				use: [
+					'style-loader',
+					'css-loader?importLoaders=1',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: function () {
+								return [
+									precss,
+									autoprefixer
+								];
+							}
+						}
+					}
+				]
 			}
 		]
-	},
-	postcss: function () {
-		return [precss, autoprefixer];
 	},
 	externals: {
 		react: 'React',
 		'react-dom': 'ReactDOM'
 	},
-	resolve: {
-		extensions: ['', '.js', '.jsx']
-	}
+	devtool: 'eval'
 };
