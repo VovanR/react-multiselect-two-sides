@@ -1,7 +1,10 @@
 import test from 'ava';
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {shallow, mount, configure} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import C from '../';
+
+configure({adapter: new Adapter()});
 
 test('render component block', t => {
 	const wrapper = shallow(<C/>);
@@ -42,8 +45,8 @@ test('render list items', t => {
 	};
 	const wrapper = mount(<C {...props}/>);
 	const items = wrapper.find('.msts__list-item');
-	t.is(items.get(0).innerHTML, 'Foo');
-	t.is(items.get(1).innerHTML, 'Bar');
+	t.is(items.get(0).props.children, 'Foo');
+	t.is(items.get(1).props.children, 'Bar');
 });
 
 test('render controls', t => {
@@ -89,12 +92,10 @@ test('render filter clear', t => {
 
 	t.is(wrapper.find('.msts__filter-clear').length, 0, 'dont render if filter is empty');
 
-	filters.get(0).value = 'foo';
-	filters.at(0).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'foo'}});
 	t.is(wrapper.find('.msts__filter-clear').length, 1);
 
-	filters.get(1).value = 'foo';
-	filters.at(1).simulate('change');
+	filters.at(1).simulate('change', {target: {value: 'foo'}});
 	t.is(wrapper.find('.msts__filter-clear').length, 2);
 
 	const filterClear = wrapper.find('.msts__filter-clear');
@@ -111,8 +112,7 @@ test('dont render filter clear if `clearable` is false', t => {
 	const wrapper = mount(<C {...props}/>);
 	const filters = wrapper.find('.msts__filter-input');
 
-	filters.get(0).value = 'foo';
-	filters.at(0).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'foo'}});
 	t.is(wrapper.find('.msts__filter-clear').length, 0);
 });
 
@@ -129,8 +129,8 @@ test('`disabled`: disable controls', t => {
 	const wrapper = mount(<C {...props}/>);
 	const controls = wrapper.find('.msts__control');
 
-	t.is(controls.get(0).disabled, true);
-	t.is(controls.get(1).disabled, true);
+	t.is(controls.get(0).props.disabled, true);
+	t.is(controls.get(1).props.disabled, true);
 });
 
 test('`disabled`: disable filter', t => {
@@ -141,13 +141,11 @@ test('`disabled`: disable filter', t => {
 	const wrapper = mount(<C {...props}/>);
 	const filters = wrapper.find('.msts__filter-input');
 
-	t.is(filters.get(0).disabled, true);
-	t.is(filters.get(1).disabled, true);
+	t.is(filters.get(0).props.disabled, true);
+	t.is(filters.get(1).props.disabled, true);
 
-	filters.get(0).value = 'foo';
-	filters.at(0).simulate('change');
-	filters.get(1).value = 'foo';
-	filters.at(1).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'foo'}});
+	filters.at(1).simulate('change', {target: {value: 'foo'}});
 
 	t.is(wrapper.find('.msts__filter-clear').length, 0, 'dont render clear buttons');
 });
@@ -235,14 +233,12 @@ test('prop clearFilterText', t => {
 	const wrapper = mount(<C {...props}/>);
 	const filters = wrapper.find('.msts__filter-input');
 
-	filters.get(0).value = 'foo';
-	filters.at(0).simulate('change');
-	filters.get(1).value = 'foo';
-	filters.at(1).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'foo'}});
+	filters.at(1).simulate('change', {target: {value: 'foo'}});
 
 	const filterClear = wrapper.find('.msts__filter-clear');
-	t.is(filterClear.get(0).title, 'Foo');
-	t.is(filterClear.get(1).title, 'Foo');
+	t.is(filterClear.get(0).props.title, 'Foo');
+	t.is(filterClear.get(1).props.title, 'Foo');
 });
 
 test('prop selectAllText and deselectAllText', t => {
@@ -254,10 +250,10 @@ test('prop selectAllText and deselectAllText', t => {
 	const wrapper = mount(<C {...props}/>);
 
 	const selectAll = wrapper.find('.msts__control_select-all');
-	t.is(selectAll.get(0).title, 'Foo');
+	t.is(selectAll.get(0).props.title, 'Foo');
 
 	const deselectAll = wrapper.find('.msts__control_deselect-all');
-	t.is(deselectAll.get(0).title, 'Bar');
+	t.is(deselectAll.get(0).props.title, 'Bar');
 });
 
 test('prop labelKey and valueKey', t => {
@@ -278,7 +274,7 @@ test('prop labelKey and valueKey', t => {
 	const items = wrapper.find('.msts__list-item');
 
 	t.is(items.length, 2);
-	t.is(items.get(0).innerHTML, 'Foo');
+	t.is(items.get(0).props.children, 'Foo');
 
 	items.at(0).simulate('click');
 	t.deepEqual(value, [4, 3]);
@@ -324,12 +320,10 @@ test('prop labelKey and valueKey filterAvailable', t => {
 
 	t.is(wrapper.find('.msts__list-item').length, 1);
 
-	filters.get(0).value = 'f';
-	filters.at(0).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'f'}});
 	t.is(wrapper.find('.msts__list-item').length, 1);
 
-	filters.get(0).value = 'fb';
-	filters.at(0).simulate('change');
+	filters.at(0).simulate('change', {target: {value: 'fb'}});
 	t.is(wrapper.find('.msts__list-item').length, 0);
 });
 
@@ -349,12 +343,10 @@ test('prop labelKey and valueKey filterSelected', t => {
 
 	const filters = wrapper.find('.msts__filter-input');
 
-	filters.get(1).value = 'f';
-	filters.at(1).simulate('change');
+	filters.at(1).simulate('change', {target: {value: 'f'}});
 	t.is(wrapper.find('.msts__list-item').length, 1, '`f`');
 
-	filters.get(1).value = 'fb';
-	filters.at(1).simulate('change');
+	filters.at(1).simulate('change', {target: {value: 'fb'}});
 	t.is(wrapper.find('.msts__list-item').length, 0, '`fb`');
 });
 

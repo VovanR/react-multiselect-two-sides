@@ -1,5 +1,17 @@
-import jsdom from 'jsdom';
+import {JSDOM} from 'jsdom';
 
-global.document = jsdom.jsdom('<body></body>');
-global.window = global.document.defaultView;
-global.navigator = global.window.navigator;
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const {window} = jsdom;
+global.window = window;
+global.document = window.document;
+global.navigator = {
+	userAgent: 'node.js'
+};
+copyProps(window, global);
+
+function copyProps(src, target) {
+	const props = Object.getOwnPropertyNames(src)
+		.filter(prop => typeof target[prop] === 'undefined')
+		.map(prop => Object.getOwnPropertyDescriptor(src, prop));
+	Object.defineProperties(target, props);
+}
