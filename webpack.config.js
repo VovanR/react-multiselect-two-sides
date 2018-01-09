@@ -42,7 +42,7 @@ module.exports = {
 		'react-dom': 'ReactDOM',
 		'prop-types': 'PropTypes'
 	},
-	devtool: 'inline-source-map',
+	devtool: 'eval',
 	resolve: {
 		modules: [
 			path.resolve(__dirname, 'node_modules')

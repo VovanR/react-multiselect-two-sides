@@ -10,7 +10,7 @@
     "url": "https://github.com/VovanR"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack -p",
     "start": "webpack --watch",
     "test": "eslint index.jsx test/*.js test/**/*.js webpack.config.js example/app.jsx && ava --verbose",
     "precommit": "npm test",
