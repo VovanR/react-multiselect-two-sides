@@ -329,7 +329,7 @@ MultiselectTwoSides.defaultProps = {
 	limit: undefined,
 	onChange: () => {},
 	options: [],
-	placeholder: null,
+	placeholder: '',
 	searchable: false,
 	selectAllText: 'Select all',
 	selectedFooter: null,

@@ -24,9 +24,11 @@ npm install --save react-multiselect-two-sides
 See: [example](example/app.jsx)
 
 ```js
-const App = React.createClass({
-    getInitialState() {
-        return {
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             options: [
                 {name: 'Foo', value: 0},
                 {name: 'Bar', value: 1},
@@ -46,9 +48,9 @@ const App = React.createClass({
         };
     },
 
-    handleChange(value) {
+    handleChange = (value) => {
         this.setState({value});
-    },
+    }
 
     render() {
         const {options, value} = this.state;
@@ -66,10 +68,10 @@ const App = React.createClass({
                 selectedFooter={`Selected: ${selectedCount}`}
                 showControls
                 searchable
-                />
+            />
         );
     }
-});
+}
 
 ReactDOM.render(<App/>, document.getElementById('app'));
 ```
@@ -78,39 +80,48 @@ ReactDOM.render(<App/>, document.getElementById('app'));
 
 ```js
 MultiselectTwoSides.propTypes = {
-    availableFooter: React.PropTypes.node,
-    availableHeader: React.PropTypes.node,
-    className: React.PropTypes.string,
-    clearFilterText: React.PropTypes.string,
-    clearable: React.PropTypes.bool,
-    deselectAllText: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    filterComponent: React.PropTypes.func,
-    highlight: React.PropTypes.array,
-    labelKey: React.PropTypes.string,
-    limit: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-    options: React.PropTypes.array,
-    placeholder: React.PropTypes.string,
-    searchable: React.PropTypes.bool,
-    selectAllText: React.PropTypes.string,
-    selectedFooter: React.PropTypes.node,
-    selectedHeader: React.PropTypes.node,
-    showControls: React.PropTypes.bool,
-    value: React.PropTypes.array,
-    valueKey: React.PropTypes.string
+    availableFooter: PropTypes.node,
+    availableHeader: PropTypes.node,
+    className: PropTypes.string,
+    clearFilterText: PropTypes.string,
+    clearable: PropTypes.bool,
+    deselectAllText: PropTypes.string,
+    disabled: PropTypes.bool,
+    filterComponent: PropTypes.func,
+    highlight: PropTypes.array,
+    labelKey: PropTypes.string,
+    limit: PropTypes.number,
+    onChange: PropTypes.func,
+    options: PropTypes.array,
+    placeholder: PropTypes.string,
+    searchable: PropTypes.bool,
+    selectAllText: PropTypes.string,
+    selectedFooter: PropTypes.node,
+    selectedHeader: PropTypes.node,
+    showControls: PropTypes.bool,
+    value: PropTypes.array,
+    valueKey: PropTypes.string
 };
 
 MultiselectTwoSides.defaultProps = {
+    availableFooter: null,
+    availableHeader: null,
+    className: null,
     clearFilterText: 'Clear',
     clearable: true,
     deselectAllText: 'Deselect all',
     disabled: false,
+    filterComponent: null,
     highlight: [],
     labelKey: 'label',
+    limit: undefined,
+    onChange: () => {},
     options: [],
+    placeholder: '',
     searchable: false,
     selectAllText: 'Select all',
+    selectedFooter: null,
+    selectedHeader: null,
     showControls: false,
     value: [],
     valueKey: 'value'
