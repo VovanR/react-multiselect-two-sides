@@ -1,3 +1,13 @@
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.11.0...v0.12.0) (2018-01-09)
+
+
+### Features
+
+* **lib:** Migrate from React.createClass to ES2015 class extends React.Component; Add React 16 supp ([3af730d](https://github.com/VovanR/react-multiselect-two-sides/commit/3af730d))
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/vovanr/react-multiselect-two-sides/compare/v0.10.0...v0.11.0) (2016-11-02)
 
