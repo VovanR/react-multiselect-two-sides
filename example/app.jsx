@@ -1,8 +1,10 @@
-/* global document React ReactDOM */
+/* global document */
 /* eslint react/forbid-component-props: 0 */
 
+import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MultiselectTwoSides from '../index.jsx';
+import MultiselectTwoSides from '../index';
 
 require('../style.css');
 require('./style.css');

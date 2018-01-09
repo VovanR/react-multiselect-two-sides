@@ -1,3 +1,4 @@
+const path = require('path');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 
@@ -6,7 +7,7 @@ module.exports = {
 		'./example/app.jsx'
 	],
 	output: {
-		path: './example',
+		path: path.resolve(__dirname, 'example'),
 		filename: 'bundle.js'
 	},
 	module: {
@@ -38,7 +39,14 @@ module.exports = {
 	},
 	externals: {
 		react: 'React',
-		'react-dom': 'ReactDOM'
+		'react-dom': 'ReactDOM',
+		'prop-types': 'PropTypes'
 	},
-	devtool: 'eval'
+	devtool: 'inline-source-map',
+	resolve: {
+		modules: [
+			path.resolve(__dirname, 'node_modules')
+		],
+		extensions: ['.js', '.jsx']
+	}
 };
