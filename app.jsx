@@ -1,30 +1,31 @@
-/* global document React ReactDOM */
+/* global document */
 /* eslint react/forbid-component-props: 0 */
 
-import MultiselectTwoSides from '../index.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import MultiselectTwoSides from '../index';
 
 require('../style.css');
 require('./style.css');
 
-const Checkbox = React.createClass({
-	propTypes: {
-		disabled: React.PropTypes.bool,
-		label: React.PropTypes.string.isRequired,
-		name: React.PropTypes.string.isRequired,
-		onChange: React.PropTypes.func.isRequired,
-		value: React.PropTypes.bool.isRequired
-	},
+class Checkbox extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.handleChange = this.handleChange.bind(this);
+	}
 
 	handleChange(e) {
 		this.props.onChange(e);
-	},
+	}
 
 	render() {
 		const {
 			disabled,
 			label,
 			name,
-			value: checked
+			value
 		} = this.props;
 
 		return (
@@ -32,22 +33,32 @@ const Checkbox = React.createClass({
 				<input
 					onChange={this.handleChange}
 					type="checkbox"
-					{...{
-						checked,
-						disabled,
-						name
-					}}
-					/>
+					checked={value}
+					disabled={disabled}
+					name={name}
+				/>
 
 				{label}
 			</label>
 		);
 	}
-});
+}
+Checkbox.propTypes = {
+	disabled: PropTypes.bool,
+	label: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+	value: PropTypes.bool.isRequired
+};
+Checkbox.defaultProps = {
+	disabled: false
+};
 
-const App = React.createClass({
-	getInitialState() {
-		return {
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
 			options: [
 				{label: 'Foo', value: 0},
 				{label: 'Bar', value: 1},
@@ -93,11 +104,14 @@ const App = React.createClass({
 				}
 			]
 		};
-	},
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleChangeSetting = this.handleChangeSetting.bind(this);
+	}
 
 	handleChange(value) {
 		this.setState({value});
-	},
+	}
 
 	handleChangeSetting(e) {
 		const {
@@ -116,7 +130,7 @@ const App = React.createClass({
 
 			return state;
 		});
-	},
+	}
 
 	getSettingByName(state, name) {
 		let result;
@@ -129,7 +143,7 @@ const App = React.createClass({
 		}
 
 		return result;
-	},
+	}
 
 	render() {
 		const {
@@ -155,13 +169,15 @@ const App = React.createClass({
 									key={setting.name}
 									onChange={this.handleChangeSetting}
 									{...setting}
-									/>
+								/>
 							);
-						} else if (typeof setting.value === 'number') {
+						}
+
+						if (typeof setting.value === 'number') {
 							return (
 								<label
 									key={setting.name}
-									>
+								>
 									{` ${setting.label}: `}
 
 									<input
@@ -169,7 +185,7 @@ const App = React.createClass({
 										type="number"
 										min="0"
 										{...setting}
-										/>
+									/>
 								</label>
 							);
 						}
@@ -192,10 +208,10 @@ const App = React.createClass({
 						value
 					}}
 					{...s}
-					/>
+				/>
 			</div>
 		);
 	}
-});
+}
 
 ReactDOM.render(<App/>, document.getElementById('app'));
