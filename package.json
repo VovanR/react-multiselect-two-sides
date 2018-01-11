@@ -10,7 +10,7 @@
     "url": "https://github.com/VovanR"
   },
   "scripts": {
-    "build": "webpack -p",
+    "build": "cross-env NODE_ENV=production webpack -p",
     "start": "webpack --watch",
     "test": "eslint index.jsx test/*.js test/**/*.js webpack.config.js example/app.jsx && ava --verbose",
     "precommit": "npm test",
@@ -43,10 +43,12 @@
     "ava": "^0.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
     "babel-preset-modern-browsers": "^10.0.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "conventional-changelog-cli": "^1.3.4",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.28.7",
     "cz-conventional-changelog": "^2.0.0",
     "enzyme": "^3.1.0",
