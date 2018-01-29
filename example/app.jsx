@@ -202,11 +202,9 @@ class App extends React.Component {
 					selectedHeader="Selected"
 					selectedFooter={`Selected: ${selectedCount}`}
 					placeholder="Filter…"
-					{...{
-						options,
-						highlight,
-						value
-					}}
+					options={options}
+					highlight={highlight}
+					value={value}
 					{...s}
 				/>
 			</div>
