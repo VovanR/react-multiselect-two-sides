@@ -41,11 +41,9 @@ export default class Filter extends Component {
 					className="msts__filter-input"
 					onChange={this.handleChange}
 					type="text"
-					{...{
-						disabled,
-						placeholder,
-						value
-					}}
+					disabled={disabled}
+					placeholder={placeholder}
+					value={value}
 				/>
 
 				{clearable && value && !disabled ? (

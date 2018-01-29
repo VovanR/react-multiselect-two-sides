@@ -209,12 +209,10 @@ export default class MultiselectTwoSides extends Component {
 				<Filter
 					value={value}
 					onChange={onChange}
-					{...{
-						clearFilterText,
-						clearable,
-						disabled,
-						placeholder
-					}}
+					clearFilterText={clearFilterText}
+					clearable={clearable}
+					disabled={disabled}
+					placeholder={placeholder}
 				/>
 			);
 		}
@@ -286,11 +284,9 @@ export default class MultiselectTwoSides extends Component {
 						<List
 							options={this.filterAvailable()}
 							onClick={this.handleClickAvailable}
-							{...{
-								disabled,
-								labelKey,
-								valueKey
-							}}
+							disabled={disabled}
+							labelKey={labelKey}
+							valueKey={valueKey}
 						/>
 					</div>
 
@@ -318,11 +314,9 @@ export default class MultiselectTwoSides extends Component {
 						<List
 							options={this.filterActive()}
 							onClick={this.handleClickSelected}
-							{...{
-								disabled,
-								labelKey,
-								valueKey
-							}}
+							disabled={disabled}
+							labelKey={labelKey}
+							valueKey={valueKey}
 						/>
 					</div>
 				</div>
