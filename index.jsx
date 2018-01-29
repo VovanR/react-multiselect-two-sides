@@ -1,6 +1,56 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import {filterByName} from './src/utils';
+import Filter from './src/Filter';
+import List from './src/List';
+
+const propTypes = {
+	availableFooter: PropTypes.node,
+	availableHeader: PropTypes.node,
+	className: PropTypes.string,
+	clearFilterText: PropTypes.string,
+	clearable: PropTypes.bool,
+	deselectAllText: PropTypes.string,
+	disabled: PropTypes.bool,
+	filterComponent: PropTypes.func,
+	highlight: PropTypes.array,
+	labelKey: PropTypes.string,
+	limit: PropTypes.number,
+	onChange: PropTypes.func,
+	options: PropTypes.array,
+	placeholder: PropTypes.string,
+	searchable: PropTypes.bool,
+	selectAllText: PropTypes.string,
+	selectedFooter: PropTypes.node,
+	selectedHeader: PropTypes.node,
+	showControls: PropTypes.bool,
+	value: PropTypes.array,
+	valueKey: PropTypes.string
+};
+const defaultProps = {
+	availableFooter: null,
+	availableHeader: null,
+	className: null,
+	clearFilterText: 'Clear',
+	clearable: true,
+	deselectAllText: 'Deselect all',
+	disabled: false,
+	filterComponent: null,
+	highlight: [],
+	labelKey: 'label',
+	limit: undefined,
+	onChange: () => {},
+	options: [],
+	placeholder: '',
+	searchable: false,
+	selectAllText: 'Select all',
+	selectedFooter: null,
+	selectedHeader: null,
+	showControls: false,
+	value: [],
+	valueKey: 'value'
+};
 
 export default class MultiselectTwoSides extends Component {
 	constructor(props) {
@@ -292,210 +342,5 @@ export default class MultiselectTwoSides extends Component {
 		);
 	}
 }
-MultiselectTwoSides.propTypes = {
-	availableFooter: PropTypes.node,
-	availableHeader: PropTypes.node,
-	className: PropTypes.string,
-	clearFilterText: PropTypes.string,
-	clearable: PropTypes.bool,
-	deselectAllText: PropTypes.string,
-	disabled: PropTypes.bool,
-	filterComponent: PropTypes.func,
-	highlight: PropTypes.array,
-	labelKey: PropTypes.string,
-	limit: PropTypes.number,
-	onChange: PropTypes.func,
-	options: PropTypes.array,
-	placeholder: PropTypes.string,
-	searchable: PropTypes.bool,
-	selectAllText: PropTypes.string,
-	selectedFooter: PropTypes.node,
-	selectedHeader: PropTypes.node,
-	showControls: PropTypes.bool,
-	value: PropTypes.array,
-	valueKey: PropTypes.string
-};
-MultiselectTwoSides.defaultProps = {
-	availableFooter: null,
-	availableHeader: null,
-	className: null,
-	clearFilterText: 'Clear',
-	clearable: true,
-	deselectAllText: 'Deselect all',
-	disabled: false,
-	filterComponent: null,
-	highlight: [],
-	labelKey: 'label',
-	limit: undefined,
-	onChange: () => {},
-	options: [],
-	placeholder: '',
-	searchable: false,
-	selectAllText: 'Select all',
-	selectedFooter: null,
-	selectedHeader: null,
-	showControls: false,
-	value: [],
-	valueKey: 'value'
-};
-
-class List extends Component {
-	constructor(props) {
-		super(props);
-
-		this.handleClick = this.handleClick.bind(this);
-	}
-
-	handleClick(value) {
-		if (this.props.disabled) {
-			return;
-		}
-
-		this.props.onClick(value);
-	}
-
-	render() {
-		const {
-			labelKey,
-			options,
-			valueKey
-		} = this.props;
-
-		return (
-			<ul className="msts__list">
-				{options.map(item => (
-					<ListItem
-						key={item[valueKey]}
-						onClick={this.handleClick}
-						disabled={item.disabled}
-						highlighted={item.highlighted}
-						label={item[labelKey]}
-						value={item[valueKey]}
-					/>
-				))}
-			</ul>
-		);
-	}
-}
-List.propTypes = {
-	disabled: PropTypes.bool.isRequired,
-	labelKey: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
-	options: PropTypes.array.isRequired,
-	valueKey: PropTypes.string.isRequired
-};
-
-class ListItem extends Component {
-	constructor(props) {
-		super(props);
-
-		this.handleClick = this.handleClick.bind(this);
-	}
-
-	handleClick() {
-		if (this.props.disabled) {
-			return;
-		}
-
-		const {
-			onClick,
-			value
-		} = this.props;
-		onClick(value);
-	}
-
-	render() {
-		const {
-			disabled,
-			highlighted,
-			label
-		} = this.props;
-		const className = 'msts__list-item';
-
-		return (
-			<li
-				className={classNames(className, disabled && `${className}_disabled`, highlighted && `${className}_highlighted`)}
-				onClick={this.handleClick}
-			>
-				{label}
-			</li>
-		);
-	}
-}
-ListItem.propTypes = {
-	disabled: PropTypes.bool,
-	highlighted: PropTypes.bool,
-	label: PropTypes.string,
-	onClick: PropTypes.func.isRequired,
-	value: PropTypes.oneOfType([
-		PropTypes.number,
-		PropTypes.string
-	]).isRequired
-};
-ListItem.defaultProps = {
-	disabled: false,
-	highlighted: false,
-	label: ''
-};
-
-class Filter extends Component {
-	constructor(props) {
-		super(props);
-
-		this.handleChange = this.handleChange.bind(this);
-		this.handleClickClear = this.handleClickClear.bind(this);
-	}
-
-	handleChange(e) {
-		this.props.onChange(e.target.value);
-	}
-
-	handleClickClear() {
-		this.props.onChange('');
-	}
-
-	render() {
-		const {
-			clearFilterText,
-			clearable,
-			disabled,
-			placeholder,
-			value
-		} = this.props;
-
-		return (
-			<div className="msts__filter">
-				<input
-					className="msts__filter-input"
-					onChange={this.handleChange}
-					type="text"
-					{...{
-						disabled,
-						placeholder,
-						value
-					}}
-				/>
-
-				{clearable && value && !disabled ? (
-					<span
-						className="msts__filter-clear"
-						onClick={this.handleClickClear}
-						title={clearFilterText}
-					/>
-				) : null}
-			</div>
-		);
-	}
-}
-Filter.propTypes = {
-	clearFilterText: PropTypes.string.isRequired,
-	clearable: PropTypes.bool.isRequired,
-	disabled: PropTypes.bool.isRequired,
-	onChange: PropTypes.func.isRequired,
-	placeholder: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired
-};
-
-function filterByName(a, name, labelKey) {
-	return a[labelKey].toLowerCase().indexOf(name.toLowerCase()) > -1;
-}
+MultiselectTwoSides.propTypes = propTypes;
+MultiselectTwoSides.defaultProps = defaultProps;
