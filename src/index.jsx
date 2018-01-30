@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {filterByName} from './src/utils';
-import Filter from './src/Filter';
-import List from './src/List';
+import {filterByName} from './utils';
+import Filter from './Filter';
+import List from './List';
 
 const propTypes = {
 	availableFooter: PropTypes.node,
