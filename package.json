@@ -20,7 +20,7 @@
     "release-minor": "mversion minor",
     "release-major": "mversion major",
     "deploy": "npm run build:example && gh-pages -d example",
-    "prepublish": "del ./lib && npm run build"
+    "prepublish": "del-cli ./lib && npm run build"
   },
   "files": [
     "./lib/*",
