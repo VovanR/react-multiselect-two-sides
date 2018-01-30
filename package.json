@@ -23,7 +23,7 @@
     "prepublish": "del-cli ./lib && npm run build"
   },
   "files": [
-    "./lib/*",
+    "./lib/*.js",
     "style.css"
   ],
   "main": "lib/index.js",
