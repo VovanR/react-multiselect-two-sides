@@ -25,52 +25,53 @@ See: [example](example/app.jsx)
 
 ```js
 class App extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            options: [
-                {name: 'Foo', value: 0},
-                {name: 'Bar', value: 1},
-                {name: 'Baz', value: 2, disabled: true},
-                {name: 'Qux', value: 3},
-                {name: 'Quux', value: 4},
-                {name: 'Corge', value: 5},
-                {name: 'Grault', value: 6},
-                {name: 'Garply', value: 7},
-                {name: 'Waldo', value: 8},
-                {name: 'Fred', value: 9},
-                {name: 'Plugh', value: 10},
-                {name: 'Xyzzy', value: 11},
-                {name: 'Thud', value: 12}
-            ],
-            value: [0, 3, 9]
-        };
-    },
+    this.state = {
+      options: [
+        {name: 'Foo', value: 0},
+        {name: 'Bar', value: 1},
+        {name: 'Baz', value: 2, disabled: true},
+        {name: 'Qux', value: 3},
+        {name: 'Quux', value: 4},
+        {name: 'Corge', value: 5},
+        {name: 'Grault', value: 6},
+        {name: 'Garply', value: 7},
+        {name: 'Waldo', value: 8},
+        {name: 'Fred', value: 9},
+        {name: 'Plugh', value: 10},
+        {name: 'Xyzzy', value: 11},
+        {name: 'Thud', value: 12}
+      ],
+      value: [0, 3, 9]
+    };
+  },
 
-    handleChange = (value) => {
-        this.setState({value});
-    }
+  handleChange = (value) => {
+    this.setState({value});
+  }
 
-    render() {
-        const {options, value} = this.state;
-        const selectedCount = value.length;
-        const availableCount = options.length - selectedCount;
+  render() {
+    const {options, value} = this.state;
+    const selectedCount = value.length;
+    const availableCount = options.length - selectedCount;
 
-        return (
-            <MultiselectTwoSides
-                {...this.state}
-                className="msts_theme_example"
-                onChange={this.handleChange}
-                availableHeader="Available"
-                availableFooter={`Available: ${availableCount}`}
-                selectedHeader="Selected"
-                selectedFooter={`Selected: ${selectedCount}`}
-                showControls
-                searchable
-            />
-        );
-    }
+    return (
+      <MultiselectTwoSides
+        {...this.state}
+        className="msts_theme_example"
+        onChange={this.handleChange}
+        availableHeader="Available"
+        availableFooter={`Available: ${availableCount}`}
+        selectedHeader="Selected"
+        selectedFooter={`Selected: ${selectedCount}`}
+        labelKey="name"
+        showControls
+        searchable
+      />
+    );
+  }
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
@@ -80,51 +81,51 @@ ReactDOM.render(<App/>, document.getElementById('app'));
 
 ```js
 MultiselectTwoSides.propTypes = {
-    availableFooter: PropTypes.node,
-    availableHeader: PropTypes.node,
-    className: PropTypes.string,
-    clearFilterText: PropTypes.string,
-    clearable: PropTypes.bool,
-    deselectAllText: PropTypes.string,
-    disabled: PropTypes.bool,
-    filterComponent: PropTypes.func,
-    highlight: PropTypes.array,
-    labelKey: PropTypes.string,
-    limit: PropTypes.number,
-    onChange: PropTypes.func,
-    options: PropTypes.array,
-    placeholder: PropTypes.string,
-    searchable: PropTypes.bool,
-    selectAllText: PropTypes.string,
-    selectedFooter: PropTypes.node,
-    selectedHeader: PropTypes.node,
-    showControls: PropTypes.bool,
-    value: PropTypes.array,
-    valueKey: PropTypes.string
+  availableFooter: PropTypes.node,
+  availableHeader: PropTypes.node,
+  className: PropTypes.string,
+  clearFilterText: PropTypes.string,
+  clearable: PropTypes.bool,
+  deselectAllText: PropTypes.string,
+  disabled: PropTypes.bool,
+  filterComponent: PropTypes.func,
+  highlight: PropTypes.array,
+  labelKey: PropTypes.string,
+  limit: PropTypes.number,
+  onChange: PropTypes.func,
+  options: PropTypes.array,
+  placeholder: PropTypes.string,
+  searchable: PropTypes.bool,
+  selectAllText: PropTypes.string,
+  selectedFooter: PropTypes.node,
+  selectedHeader: PropTypes.node,
+  showControls: PropTypes.bool,
+  value: PropTypes.array,
+  valueKey: PropTypes.string
 };
 
 MultiselectTwoSides.defaultProps = {
-    availableFooter: null,
-    availableHeader: null,
-    className: null,
-    clearFilterText: 'Clear',
-    clearable: true,
-    deselectAllText: 'Deselect all',
-    disabled: false,
-    filterComponent: null,
-    highlight: [],
-    labelKey: 'label',
-    limit: undefined,
-    onChange: () => {},
-    options: [],
-    placeholder: '',
-    searchable: false,
-    selectAllText: 'Select all',
-    selectedFooter: null,
-    selectedHeader: null,
-    showControls: false,
-    value: [],
-    valueKey: 'value'
+  availableFooter: null,
+  availableHeader: null,
+  className: null,
+  clearFilterText: 'Clear',
+  clearable: true,
+  deselectAllText: 'Deselect all',
+  disabled: false,
+  filterComponent: null,
+  highlight: [],
+  labelKey: 'label',
+  limit: undefined,
+  onChange: () => {},
+  options: [],
+  placeholder: '',
+  searchable: false,
+  selectAllText: 'Select all',
+  selectedFooter: null,
+  selectedHeader: null,
+  showControls: false,
+  value: [],
+  valueKey: 'value'
 };
 ```
 
