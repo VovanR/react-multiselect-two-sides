@@ -1,3 +1,14 @@
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.12.0...v0.12.1) (2018-01-30)
+
+
+### Bug Fixes
+
+* **lib:** Remove spread props objects ([85b2aa0](https://github.com/VovanR/react-multiselect-two-sides/commit/85b2aa0)), closes [#19](https://github.com/VovanR/react-multiselect-two-sides/issues/19)
+* **lib:** Split main component file to sub-component files ([42e2618](https://github.com/VovanR/react-multiselect-two-sides/commit/42e2618)), closes [#19](https://github.com/VovanR/react-multiselect-two-sides/issues/19)
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.11.0...v0.12.0) (2018-01-09)
 
