@@ -10,7 +10,7 @@
     "url": "https://github.com/VovanR"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production babel src --out-file index.js",
+    "build": "cross-env NODE_ENV=production babel src --out-dir lib",
     "build:example": "cross-env NODE_ENV=production webpack -p",
     "start": "webpack --watch",
     "test": "eslint index.jsx test/*.js test/**/*.js webpack.config.js example/app.jsx && ava --verbose",
@@ -20,13 +20,13 @@
     "release-minor": "mversion minor",
     "release-major": "mversion major",
     "deploy": "npm run build:example && gh-pages -d example",
-    "prepublish": "del-cli index.js && npm run build"
+    "prepublishOnly": "del-cli lib && npm run build"
   },
   "files": [
-    "index.js",
+    "lib",
     "style.css"
   ],
-  "main": "index.js",
+  "main": "lib/index.js",
   "style": "style.css",
   "keywords": [
     "react",
