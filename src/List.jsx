@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import ListItem from './ListItem'
+import React, {Component} from 'react';
+import ListItem from './ListItem';
 
 const propTypes = {
 	disabled: PropTypes.bool.isRequired,
@@ -8,7 +8,7 @@ const propTypes = {
 	onClick: PropTypes.func.isRequired,
 	options: PropTypes.array.isRequired,
 	valueKey: PropTypes.string.isRequired
-}
+};
 
 export default class List extends Component {
 	constructor(props) {
