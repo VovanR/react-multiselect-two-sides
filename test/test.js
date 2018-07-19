@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import C from '../';
+import C from '../src';
 
 test('render component block', t => {
 	const wrapper = shallow(<C/>);
