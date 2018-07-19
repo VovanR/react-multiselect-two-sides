@@ -1,3 +1,8 @@
+<a name="0.14.0"></a>
+# [0.14.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.13.2...v0.14.0) (2018-07-19)
+
+
+
 <a name="0.13.2"></a>
 ## [0.13.2](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.13.1...v0.13.2) (2018-07-17)
 
