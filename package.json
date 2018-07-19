@@ -68,6 +68,7 @@
     "mversion": "^1.10.1",
     "postcss-loader": "^2.0.8",
     "precss": "^2.0.0",
+    "raf": "^3.4.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "style-loader": "^0.19.0",
