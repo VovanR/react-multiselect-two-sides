@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MultiselectTwoSides from '../index';
+import MultiselectTwoSides from '../src';
 
 require('../style.css');
 require('./style.css');
@@ -202,11 +202,9 @@ class App extends React.Component {
 					selectedHeader="Selected"
 					selectedFooter={`Selected: ${selectedCount}`}
 					placeholder="Filter…"
-					{...{
-						options,
-						highlight,
-						value
-					}}
+					options={options}
+					highlight={highlight}
+					value={value}
 					{...s}
 				/>
 			</div>
