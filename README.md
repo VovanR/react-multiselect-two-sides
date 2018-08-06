@@ -16,7 +16,7 @@ Demo: [vovanr.github.io/react-multiselect-two-sides][demo]
 
 ## Install
 
-```
+```shell
 npm install --save react-multiselect-two-sides
 ```
 
@@ -132,9 +132,9 @@ MultiselectTwoSides.defaultProps = {
 ## License
 MIT © [Vladimir Rodkin](https://github.com/VovanR)
 
-[demo]: http://vovanr.github.io/react-multiselect-two-sides
+[demo]: https://vovanr.github.io/react-multiselect-two-sides
 
-[commitizen-url]: http://commitizen.github.io/cz-cli/
+[commitizen-url]: https://commitizen.github.io/cz-cli/
 [commitizen-image]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 
 [codestyle-url]: https://github.com/sindresorhus/xo
