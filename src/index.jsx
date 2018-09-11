@@ -13,6 +13,7 @@ const propTypes = {
 	clearable: PropTypes.bool,
 	deselectAllText: PropTypes.string,
 	disabled: PropTypes.bool,
+	filterBy: PropTypes.func,
 	filterComponent: PropTypes.func,
 	highlight: PropTypes.array,
 	labelKey: PropTypes.string,
@@ -36,6 +37,7 @@ const defaultProps = {
 	clearable: true,
 	deselectAllText: 'Deselect all',
 	disabled: false,
+	filterBy: filterByName,
 	filterComponent: null,
 	highlight: [],
 	labelKey: 'label',
@@ -117,6 +119,7 @@ export default class MultiselectTwoSides extends Component {
 
 	filterAvailable() {
 		const {
+			filterBy,
 			highlight,
 			labelKey,
 			limit,
@@ -155,7 +158,7 @@ export default class MultiselectTwoSides extends Component {
 			filterAvailable: filter
 		} = this.state;
 		if (filter) {
-			return limited.filter(a => (filterByName(a, filter, labelKey)));
+			return limited.filter(a => (filterBy(a, filter, labelKey)));
 		}
 
 		return limited;
@@ -163,6 +166,7 @@ export default class MultiselectTwoSides extends Component {
 
 	filterActive() {
 		const {
+			filterBy,
 			labelKey,
 			options,
 			value,
@@ -181,7 +185,7 @@ export default class MultiselectTwoSides extends Component {
 
 		const {filterSelected: filter} = this.state;
 		if (filter) {
-			return filtered.filter(a => (filterByName(a, filter, labelKey)));
+			return filtered.filter(a => (filterBy(a, filter, labelKey)));
 		}
 
 		return filtered;
