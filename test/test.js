@@ -101,6 +101,33 @@ test('render filter clear', t => {
 	t.true(filterClear.at(0).hasClass('msts__filter-clear'));
 });
 
+test('custom `filterBy` property', t => {
+	const props = {
+		searchable: true,
+		// Custom case-sensitive filter for test
+		filterBy: (item, filter, labelKey) => item[labelKey].indexOf(filter) > -1,
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'foo', value: 1},
+			{label: 'Bar', value: 2},
+			{label: 'bar', value: 3}
+		],
+		value: [2, 3]
+	};
+	const wrapper = mount(<C {...props}/>);
+	const filters = wrapper.find('.msts__filter-input');
+
+	filters.at(0).simulate('change', {target: {value: 'Fo'}});
+	const available = wrapper.find('.msts__side_available');
+	t.is(available.find('.msts__list-item').length, 1);
+	t.is(available.find('.msts__list-item').text(), 'Foo');
+
+	filters.at(1).simulate('change', {target: {value: 'Ba'}});
+	const selected = wrapper.find('.msts__side_selected');
+	t.is(selected.find('.msts__list-item').length, 1);
+	t.is(selected.find('.msts__list-item').text(), 'Bar');
+});
+
 test('dont render filter clear if `clearable` is false', t => {
 	const props = {
 		searchable: true,

@@ -1,3 +1,3 @@
-export function filterByName(a, name, labelKey) {
-	return a[labelKey].toLowerCase().indexOf(name.toLowerCase()) > -1;
+export function filterBy(option, filter, labelKey) {
+	return option[labelKey].toLowerCase().indexOf(filter.toLowerCase()) > -1;
 }

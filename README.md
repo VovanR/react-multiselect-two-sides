@@ -113,7 +113,8 @@ MultiselectTwoSides.defaultProps = {
   clearable: true,
   deselectAllText: 'Deselect all',
   disabled: false,
-  filterBy: (item, filter, labelKey) => item[labelKey].toLowerCase().indexOf(filter.toLowerCase()) > -1,
+  // Case-insensitive filter
+  filterBy: (option, filter, labelKey) => option[labelKey].toLowerCase().indexOf(filter.toLowerCase()) > -1,
   filterComponent: null,
   highlight: [],
   labelKey: 'label',
