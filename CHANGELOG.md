@@ -1,3 +1,13 @@
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.14.0...v0.15.0) (2018-09-17)
+
+
+### Features
+
+* **lib:** Add `filterBy` property ([34b1b2d](https://github.com/VovanR/react-multiselect-two-sides/commit/34b1b2d)), closes [#22](https://github.com/VovanR/react-multiselect-two-sides/issues/22)
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.13.2...v0.14.0) (2018-07-19)
 
