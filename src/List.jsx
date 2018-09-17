@@ -37,11 +37,11 @@ export default class List extends Component {
 				{options.map(item => (
 					<ListItem
 						key={item[valueKey]}
-						onClick={this.handleClick}
 						disabled={item.disabled}
 						highlighted={item.highlighted}
 						label={item[labelKey]}
 						value={item[valueKey]}
+						onClick={this.handleClick}
 					/>
 				))}
 			</ul>

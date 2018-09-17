@@ -212,11 +212,11 @@ export default class MultiselectTwoSides extends Component {
 			return (
 				<Filter
 					value={value}
-					onChange={onChange}
 					clearFilterText={clearFilterText}
 					clearable={clearable}
 					disabled={disabled}
 					placeholder={placeholder}
+					onChange={onChange}
 				/>
 			);
 		}
@@ -287,10 +287,10 @@ export default class MultiselectTwoSides extends Component {
 					<div className="msts__side msts__side_available">
 						<List
 							options={this.filterAvailable()}
-							onClick={this.handleClickAvailable}
 							disabled={disabled}
 							labelKey={labelKey}
 							valueKey={valueKey}
+							onClick={this.handleClickAvailable}
 						/>
 					</div>
 
@@ -298,18 +298,18 @@ export default class MultiselectTwoSides extends Component {
 						<div className="msts__side msts__side_controls">
 							<button
 								className="msts__control msts__control_select-all"
-								onClick={this.handleClickSelectAll}
 								title={selectAllText}
 								type="button"
 								disabled={value.length === options.length || value.length >= limit || disabled}
+								onClick={this.handleClickSelectAll}
 							/>
 
 							<button
 								className="msts__control msts__control_deselect-all"
-								onClick={this.handleClickDeselectAll}
 								title={deselectAllText}
 								type="button"
 								disabled={!value.length || disabled}
+								onClick={this.handleClickDeselectAll}
 							/>
 						</div>
 					) : null}
@@ -317,10 +317,10 @@ export default class MultiselectTwoSides extends Component {
 					<div className="msts__side msts__side_selected">
 						<List
 							options={this.filterActive()}
-							onClick={this.handleClickSelected}
 							disabled={disabled}
 							labelKey={labelKey}
 							valueKey={valueKey}
+							onClick={this.handleClickSelected}
 						/>
 					</div>
 				</div>

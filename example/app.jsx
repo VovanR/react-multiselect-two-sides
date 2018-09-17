@@ -31,11 +31,11 @@ class Checkbox extends React.Component {
 		return (
 			<label>
 				<input
-					onChange={this.handleChange}
 					type="checkbox"
 					checked={value}
 					disabled={disabled}
 					name={name}
+					onChange={this.handleChange}
 				/>
 
 				{label}
@@ -181,9 +181,9 @@ class App extends React.Component {
 									{` ${setting.label}: `}
 
 									<input
-										onChange={this.handleChangeSetting}
 										type="number"
 										min="0"
+										onChange={this.handleChangeSetting}
 										{...setting}
 									/>
 								</label>
@@ -196,7 +196,6 @@ class App extends React.Component {
 
 				<MultiselectTwoSides
 					className="msts_theme_example"
-					onChange={this.handleChange}
 					availableHeader="Available"
 					availableFooter={`Available: ${availableCount}`}
 					selectedHeader="Selected"
@@ -205,6 +204,7 @@ class App extends React.Component {
 					options={options}
 					highlight={highlight}
 					value={value}
+					onChange={this.handleChange}
 					{...s}
 				/>
 			</div>
