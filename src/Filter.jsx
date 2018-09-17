@@ -39,18 +39,18 @@ export default class Filter extends Component {
 			<div className="msts__filter">
 				<input
 					className="msts__filter-input"
-					onChange={this.handleChange}
 					type="text"
 					disabled={disabled}
 					placeholder={placeholder}
 					value={value}
+					onChange={this.handleChange}
 				/>
 
 				{clearable && value && !disabled ? (
 					<span
 						className="msts__filter-clear"
-						onClick={this.handleClickClear}
 						title={clearFilterText}
+						onClick={this.handleClickClear}
 					/>
 				) : null}
 			</div>
