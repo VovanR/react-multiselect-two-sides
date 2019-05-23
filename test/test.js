@@ -424,3 +424,31 @@ test('limit list selectall', t => {
 	selectAll.simulate('click');
 	t.deepEqual(value, [0, 2, 4]);
 });
+
+test('selectall filtered items only', t => {
+	let value = [];
+	const props = {
+		searchable: true,
+		showControls: true,
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1},
+			{label: 'Baz', value: 2},
+			{label: 'Qux', value: 3},
+			{label: 'Quux', value: 4}
+		],
+		value: [0],
+		onChange(newValue) {
+			value = newValue;
+		}
+	};
+	const wrapper = mount(<C {...props}/>);
+	const filters = wrapper.find('.msts__filter-input');
+	const selectAll = wrapper.find('.msts__control_select-all');
+
+	filters.at(0).simulate('change', {target: {value: 'ux'}});
+
+	selectAll.simulate('click');
+
+	t.deepEqual(value, [0, 3, 4]);
+});

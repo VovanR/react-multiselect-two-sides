@@ -90,11 +90,12 @@ export default class MultiselectTwoSides extends Component {
 		const {
 			limit,
 			onChange,
-			options,
 			value,
 			valueKey
 		} = this.props;
 		const previousValue = value.slice();
+
+		const options = this.filterAvailable();
 
 		const newValue = options.reduce((acc, option) => {
 			if (!option.disabled && previousValue.indexOf(option[valueKey]) === -1) {
