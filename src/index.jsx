@@ -100,6 +100,7 @@ export default class MultiselectTwoSides extends Component {
 			if (!option.disabled && previousValue.indexOf(option[valueKey]) === -1) {
 				acc.push(option[valueKey]);
 			}
+
 			return acc;
 		}, previousValue);
 
@@ -131,6 +132,7 @@ export default class MultiselectTwoSides extends Component {
 			if (value.indexOf(option[valueKey]) === -1) {
 				acc.push(option);
 			}
+
 			return acc;
 		}, []);
 
@@ -146,6 +148,7 @@ export default class MultiselectTwoSides extends Component {
 				if (highlight.indexOf(option[valueKey]) > -1) {
 					return Object.assign({}, option, {highlighted: true});
 				}
+
 				return option;
 			});
 		}
@@ -176,6 +179,7 @@ export default class MultiselectTwoSides extends Component {
 			if (value.indexOf(option[valueKey]) > -1) {
 				acc.push(option);
 			}
+
 			return acc;
 		}, []);
 
