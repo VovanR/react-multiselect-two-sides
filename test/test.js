@@ -452,3 +452,31 @@ test('selectall filtered items only', t => {
 
 	t.deepEqual(value, [0, 3, 4]);
 });
+
+test('deselectall filtered items only', t => {
+	let value = [];
+	const props = {
+		searchable: true,
+		showControls: true,
+		options: [
+			{label: 'Foo', value: 0},
+			{label: 'Bar', value: 1},
+			{label: 'Baz', value: 2},
+			{label: 'Qux', value: 3},
+			{label: 'Quux', value: 4}
+		],
+		value: [0, 1, 2, 3, 4],
+		onChange(newValue) {
+			value = newValue;
+		}
+	};
+	const wrapper = mount(<C {...props}/>);
+	const filters = wrapper.find('.msts__filter-input');
+	const deselectAll = wrapper.find('.msts__control_deselect-all');
+
+	filters.at(1).simulate('change', {target: {value: 'ux'}});
+
+	deselectAll.simulate('click');
+
+	t.deepEqual(value, [0, 1, 2]);
+});

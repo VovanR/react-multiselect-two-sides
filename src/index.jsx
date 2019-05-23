@@ -116,7 +116,30 @@ export default class MultiselectTwoSides extends Component {
 	}
 
 	handleClickDeselectAll() {
-		this.props.onChange([]);
+		const {
+			onChange,
+			value,
+			valueKey
+		} = this.props;
+		const previousValue = value.slice();
+
+		const options = this.filterActive();
+
+		const optionsValueMap = options.reduce((acc, option) => {
+			acc[option[valueKey]] = true;
+
+			return acc;
+		}, {});
+
+		const newValue = previousValue.reduce((acc, value) => {
+			if (!optionsValueMap[value]) {
+				acc.push(value);
+			}
+
+			return acc;
+		}, []);
+
+		onChange(newValue);
 	}
 
 	filterAvailable() {
