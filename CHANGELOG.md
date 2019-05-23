@@ -1,3 +1,13 @@
+# [0.16.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.15.0...v0.16.0) (2019-05-23)
+
+
+### Features
+
+* **lib:** Deselect All deselect only filtered values ([ad2a772](https://github.com/VovanR/react-multiselect-two-sides/commit/ad2a772)), closes [#31](https://github.com/VovanR/react-multiselect-two-sides/issues/31)
+* **lib:** Select All adds only filtered values ([4da1587](https://github.com/VovanR/react-multiselect-two-sides/commit/4da1587)), closes [#31](https://github.com/VovanR/react-multiselect-two-sides/issues/31)
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/VovanR/react-multiselect-two-sides/compare/v0.14.0...v0.15.0) (2018-09-17)
 
