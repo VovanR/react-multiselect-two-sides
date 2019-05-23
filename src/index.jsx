@@ -127,8 +127,10 @@ export default class MultiselectTwoSides extends Component {
 			limit,
 			options,
 			value,
-			valueKey
+			valueKey,
+			searchable
 		} = this.props;
+
 		const filtered = options.reduce((acc, option) => {
 			if (value.indexOf(option[valueKey]) === -1) {
 				acc.push(option);
@@ -154,7 +156,7 @@ export default class MultiselectTwoSides extends Component {
 			});
 		}
 
-		if (!this.props.searchable) {
+		if (!searchable) {
 			return limited;
 		}
 
@@ -260,10 +262,8 @@ export default class MultiselectTwoSides extends Component {
 			filterSelected
 		} = this.state;
 
-		const componentClassName = 'msts';
-
 		return (
-			<div className={classNames(componentClassName, disabled && `${componentClassName}_disabled`, className)}>
+			<div className={classNames('msts', disabled && 'msts_disabled', className)}>
 				{availableHeader || selectedHeader ? (
 					<div className="msts__heading">
 						<div className="msts__side msts__side_available">
