@@ -65,7 +65,7 @@
     "eslint-plugin-xo": "^1.0.0",
     "gh-pages": "^2.0.1",
     "husky": "^2.3.0",
-    "jsdom": "^15.1.0",
+    "jsdom": "^16.5.0",
     "mversion": "^1.13.0",
     "postcss-loader": "^3.0.0",
     "precss": "^4.0.0",
