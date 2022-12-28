@@ -5,8 +5,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Dependency Status][depstat-image]][depstat-url]
-[![DevDependency Status][depstat-dev-image]][depstat-dev-url]
 
 > React multiselect two sides component
 
@@ -148,9 +146,3 @@ MIT © [Vladimir Rodkin](https://github.com/VovanR)
 
 [travis-url]: https://travis-ci.org/VovanR/react-multiselect-two-sides
 [travis-image]: https://img.shields.io/travis/VovanR/react-multiselect-two-sides.svg?style=flat-square
-
-[depstat-url]: https://david-dm.org/VovanR/react-multiselect-two-sides
-[depstat-image]: https://david-dm.org/VovanR/react-multiselect-two-sides.svg?style=flat-square
-
-[depstat-dev-url]: https://david-dm.org/VovanR/react-multiselect-two-sides
-[depstat-dev-image]: https://david-dm.org/VovanR/react-multiselect-two-sides/dev-status.svg?style=flat-square
